@@ -1,0 +1,26 @@
+{
+  "name": "chainpoint-validate",
+  "version": "1.0.0",
+  "description": "A Node.js module for validating Tierion's Chainpoint blockchain receipts",
+  "main": "validator.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tierion/chainpoint-validate-js.git"
+  },
+  "keywords": [
+    "Tierion",
+    "Chainpoint",
+    "validation",
+    "verify",
+    "receipt"
+  ],
+  "author": "Jason Bukowski <jason@tierion.com> (https://tierion.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tierion/chainpoint-validate-js/issues"
+  },
+  "homepage": "https://github.com/Tierion/chainpoint-validate-js#readme"
+}
