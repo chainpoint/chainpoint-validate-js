@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "blockchain-anchor": "^1.0.1",
+    "crypto": "0.0.3",
     "lodash": "^4.12.0"
   }
 }
