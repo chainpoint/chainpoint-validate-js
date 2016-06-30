@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/l/chainpoint-validate.svg)](https://www.npmjs.com/package/chainpoint-validate)
 [![npm](https://img.shields.io/npm/v/chainpoint-validate.svg)](https://www.npmjs.com/package/chainpoint-validate)
 
-A Node.js module for validating Tierion's Chainpoint blockchain receipts
+A Node.js module for validating Chainpoint blockchain receipts used by Tierion
 
 ### Installation
 
