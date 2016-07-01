@@ -1,13 +1,13 @@
 var should = require('should');
-var chainpointvalidator = require('../chainpointvalidator.js');
+var chainpointvalidate = require('../chainpointvalidate.js');
 
 describe("Testing v1.x receipts - ", function () {
 
     describe("Using nullReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var nullReceipt = null;
-        var result = validator.isValidReceipt(nullReceipt);
+        var result = chainpointValidate.isValidReceipt(nullReceipt);
         it("should receive error - bad Json", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot parse receipt JSON');
@@ -17,9 +17,9 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using stringReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var stringReceipt = 'dfsgsfgxcvbasfdg';
-        var result = validator.isValidReceipt(stringReceipt);
+        var result = chainpointValidate.isValidReceipt(stringReceipt);
         it("should receive error - bad Json", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot parse receipt JSON');
@@ -29,9 +29,9 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using numberReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var numberReceipt = 435345;
-        var result = validator.isValidReceipt(numberReceipt);
+        var result = chainpointValidate.isValidReceipt(numberReceipt);
         it("should receive error - unknown version", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot identify Chainpoint version');
@@ -41,9 +41,9 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using emptyReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var emptyReceipt = {};
-        var result = validator.isValidReceipt(emptyReceipt);
+        var result = chainpointValidate.isValidReceipt(emptyReceipt);
         it("should receive error - unknown version", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot identify Chainpoint version');
@@ -53,9 +53,9 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using junkReceiptObject - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var junkReceiptObject = { 'sdf': 23424 };
-        var result = validator.isValidReceipt(junkReceiptObject);
+        var result = chainpointValidate.isValidReceipt(junkReceiptObject);
         it("should receive error - unknown version", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot identify Chainpoint version');
@@ -65,9 +65,9 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using junkReceiptString - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var junkReceiptString = '{ "sdf": 23424 }';
-        var result = validator.isValidReceipt(junkReceiptString);
+        var result = chainpointValidate.isValidReceipt(junkReceiptString);
         it("should receive error - unknown version", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot identify Chainpoint version');
@@ -77,14 +77,14 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badVersionNumberReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badVersionNumberReceipt = {
             "header": {
                 "chainpoint_version": "0.9"
             }
         };
 
-        var result = validator.isValidReceipt(badVersionNumberReceipt);
+        var result = chainpointValidate.isValidReceipt(badVersionNumberReceipt);
         it("should receive error - bad version", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid Chainpoint version - ' + badVersionNumberReceipt.header.chainpoint_version);
@@ -94,14 +94,14 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingHashTypeReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingHashTypeReceipt = {
             "header": {
                 "chainpoint_version": "1.1"
             }
         };
 
-        var result = validator.isValidReceipt(missingHashTypeReceipt);
+        var result = chainpointValidate.isValidReceipt(missingHashTypeReceipt);
         it("should receive error - missing hashtype", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing hash type');
@@ -111,7 +111,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badHashTypeReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badHashTypeReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -119,7 +119,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badHashTypeReceipt);
+        var result = chainpointValidate.isValidReceipt(badHashTypeReceipt);
         it("should receive error - bad hashtype", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid hash type - ' + badHashTypeReceipt.header.hash_type);
@@ -129,7 +129,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingRootReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingRootReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -137,7 +137,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(missingRootReceipt);
+        var result = chainpointValidate.isValidReceipt(missingRootReceipt);
         it("should receive error - missing merkle root", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing merkle root');
@@ -147,7 +147,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badRootReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badRootReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -156,7 +156,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badRootReceipt);
+        var result = chainpointValidate.isValidReceipt(badRootReceipt);
         it("should receive error - bad merkle root", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid merkle root - ' + badRootReceipt.header.merkle_root);
@@ -166,7 +166,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingTxReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingTxReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -175,7 +175,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(missingTxReceipt);
+        var result = chainpointValidate.isValidReceipt(missingTxReceipt);
         it("should receive error - missing txId", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing transaction Id');
@@ -185,7 +185,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badTxReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badTxReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -195,7 +195,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badTxReceipt);
+        var result = chainpointValidate.isValidReceipt(badTxReceipt);
         it("should receive error - bad txId", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid transaction Id - ' + badTxReceipt.header.tx_id);
@@ -205,7 +205,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingTimestampReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingTimestampReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -215,7 +215,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(missingTimestampReceipt);
+        var result = chainpointValidate.isValidReceipt(missingTimestampReceipt);
         it("should receive error - missing timestamp", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing timestamp');
@@ -225,7 +225,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badTimestampReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badTimestampReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -236,7 +236,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badTimestampReceipt);
+        var result = chainpointValidate.isValidReceipt(badTimestampReceipt);
         it("should receive error - bad timestamp", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid timestamp - ' + badTimestampReceipt.header.timestamp);
@@ -246,7 +246,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using noTargetReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var noTargetReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -257,7 +257,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(noTargetReceipt);
+        var result = chainpointValidate.isValidReceipt(noTargetReceipt);
         it("should receive error - missing target", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing target');
@@ -267,7 +267,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingTargethashReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingTargethashReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -279,7 +279,7 @@ describe("Testing v1.x receipts - ", function () {
             "target": {}
         };
 
-        var result = validator.isValidReceipt(missingTargethashReceipt);
+        var result = chainpointValidate.isValidReceipt(missingTargethashReceipt);
         it("should receive error - missing target hash", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing target hash');
@@ -289,7 +289,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badTargethashReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badTargethashReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -303,7 +303,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badTargethashReceipt);
+        var result = chainpointValidate.isValidReceipt(badTargethashReceipt);
         it("should receive error - bad target hash", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid target hash - ' + badTargethashReceipt.target.target_hash);
@@ -313,7 +313,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using missingTargetproofReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var missingTargetproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -327,7 +327,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(missingTargetproofReceipt);
+        var result = chainpointValidate.isValidReceipt(missingTargetproofReceipt);
         it("should receive error - missing target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing target proof');
@@ -337,7 +337,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badproofReceipt null - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -352,7 +352,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badproofReceipt);
+        var result = chainpointValidate.isValidReceipt(badproofReceipt);
         it("should receive error - bad target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing target proof');
@@ -361,7 +361,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badproofReceipt empty string- ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -376,7 +376,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badproofReceipt);
+        var result = chainpointValidate.isValidReceipt(badproofReceipt);
         it("should receive error - bad target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Missing target proof');
@@ -385,7 +385,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badproofReceipt dsfgdfg- ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -400,7 +400,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badproofReceipt);
+        var result = chainpointValidate.isValidReceipt(badproofReceipt);
         it("should receive error - bad target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
@@ -409,7 +409,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badproofReceipt {}- ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -424,7 +424,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badproofReceipt);
+        var result = chainpointValidate.isValidReceipt(badproofReceipt);
         it("should receive error - bad target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
@@ -433,7 +433,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using badproofReceipt bad object with value- ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var badproofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -448,7 +448,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(badproofReceipt);
+        var result = chainpointValidate.isValidReceipt(badproofReceipt);
         it("should receive error - bad target proof", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
@@ -458,7 +458,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using emptyProofInvalidReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var emptyProofInvalidReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -473,7 +473,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(emptyProofInvalidReceipt);
+        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
         it("should receive error - invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -483,7 +483,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - missing proof[0].parent", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // missing proof[0].parent
             "header": {
                 "chainpoint_version": "1.1",
@@ -508,7 +508,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -517,7 +517,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - proof[0].right invalid", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // proof[0].right invalid
             "header": {
                 "chainpoint_version": "1.1",
@@ -543,7 +543,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -552,7 +552,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - parent != HASH(l+r)", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // parent != HASH(l+r)
             "header": {
                 "chainpoint_version": "1.1",
@@ -578,7 +578,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -587,7 +587,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - target hash not in proof[0]", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // target hash not in proof[0]
             "header": {
                 "chainpoint_version": "1.1",
@@ -613,7 +613,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -622,7 +622,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - proof[1].left missing", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { //proof[1].left missing
             "header": {
                 "chainpoint_version": "1.1",
@@ -647,7 +647,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -656,7 +656,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - previous parent not in proof[1]", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // previous parent not in proof[1]
             "header": {
                 "chainpoint_version": "1.1",
@@ -682,7 +682,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -691,7 +691,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - proof[1].parent != hash(l+r)", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // proof[1].parent != hash(l+r)
             "header": {
                 "chainpoint_version": "1.1",
@@ -717,7 +717,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -726,7 +726,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceipt - proof[1].parent != merkle root", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceipt = { // proof[1].parent != merkle root
             "header": {
                 "chainpoint_version": "1.1",
@@ -752,7 +752,7 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(invalidWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
         it("should be invalid proof path", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Invalid proof path');
@@ -761,7 +761,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using validEmptyProofReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var validEmptyProofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -776,11 +776,14 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(validEmptyProofReceipt);
+        var result = chainpointValidate.isValidReceipt(validEmptyProofReceipt);
         it("should be considered valid", function () {
             result.should.have.property('isValid', true);
-            result.should.have.property('tx_id', "6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a");
-            result.should.have.property('merkle_root', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
+            result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
+            result.should.have.property('anchors');
+            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+            result.anchors[0].should.have.property('type', 'BTCOpReturn');
+            result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
             result.should.not.have.property('error');
         });
 
@@ -788,7 +791,7 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using validWithProofReceipt - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var validWithProofReceipt = {
             "header": {
                 "chainpoint_version": "1.1",
@@ -814,11 +817,14 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = validator.isValidReceipt(validWithProofReceipt);
+        var result = chainpointValidate.isValidReceipt(validWithProofReceipt);
         it("should be considered valid", function () {
             result.should.have.property('isValid', true);
-            result.should.have.property('tx_id', "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09");
-            result.should.have.property('merkle_root', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+            result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+            result.should.have.property('anchors');
+            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+            result.anchors[0].should.have.property('type', 'BTCOpReturn');
+            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
             result.should.not.have.property('error');
         });
 
@@ -826,10 +832,10 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceiptString empty- ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceiptString = "";
 
-        var result = validator.isValidReceipt("invalidWithProofReceiptString");
+        var result = chainpointValidate.isValidReceipt("invalidWithProofReceiptString");
         it("should be unparsable", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot parse receipt JSON');
@@ -839,10 +845,10 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using invalidWithProofReceiptString - bad", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceiptString = "dfgdfgdfg";
 
-        var result = validator.isValidReceipt("invalidWithProofReceiptString");
+        var result = chainpointValidate.isValidReceipt("invalidWithProofReceiptString");
         it("should be unparsable", function () {
             result.should.have.property('isValid', false);
             result.should.have.property('error', 'Cannot parse receipt JSON');
@@ -852,14 +858,17 @@ describe("Testing v1.x receipts - ", function () {
 
     describe("Using validWithProofReceiptString - ", function () {
 
-        var validator = chainpointvalidator();
+        var chainpointValidate = chainpointvalidate();
         var validWithProofReceiptString = "{\"header\": {\n                \"chainpoint_version\": \"1.1\",\n                \"hash_type\": \"SHA-256\",\n                \"merkle_root\": \"5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c\",\n                \"tx_id\": \"b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09\",\n                \"timestamp\": 1445033433\n            },\n            \"target\": {\n                \"target_hash\": \"cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65\",\n                \"target_proof\": [\n                    {\n                        \"parent\": \"4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9\",\n                        \"left\": \"cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65\",\n                        \"right\": \"a52d9c0a0b077237f58c7e5b8b38d2dd7756176ca379947a093105574a465685\"\n                    },\n                    {\n                        \"parent\": \"5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c\",\n                        \"left\": \"4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9\",\n                        \"right\": \"3bd99c8660a226a62a7df1efc2a296a398ad91e2aa56d68fefd08571a853096e\"\n                    }\n                ]\n            }\n        }";
 
-        var result = validator.isValidReceipt(validWithProofReceiptString);
+        var result = chainpointValidate.isValidReceipt(validWithProofReceiptString);
         it("should be considered valid", function () {
             result.should.have.property('isValid', true);
-            result.should.have.property('tx_id', "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09");
-            result.should.have.property('merkle_root', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+            result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+            result.should.have.property('anchors');
+            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+            result.anchors[0].should.have.property('type', 'BTCOpReturn');
+            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
             result.should.not.have.property('error');
         });
 
