@@ -50,6 +50,7 @@ var ChainpointValidate = function () {
                 var typeRegex = /^Chainpoint.*v2$/;
                 var isValidType = typeRegex.test(receiptType); // validate 'type' attribute value
                 if (isValidType) receiptVersion = '2';
+                if (!receiptVersion) return _errorResult('Invalid Chainpoint type - ' + receiptType);
             }
         }
         if (!receiptVersion) return _errorResult('Cannot identify Chainpoint version');
@@ -170,9 +171,9 @@ var ChainpointValidate = function () {
         var receiptType = receipt.type || receipt['@type'];
         var hashTypeRegex = /^Chainpoint(.*)v2$/;
         var hashType = hashTypeRegex.exec(receiptType)[1];
-        if (!hashType) return _errorResult('Missing hash type');
+        if (!hashType) return _errorResult('Invalid Chainpoint type - ' + receiptType);
 
-        if (_.indexOf(CHAINPOINTv2_VALID_HASHTYPES, hashType) == -1) return _errorResult('Invalid hash type - ' + hashType);
+        if (_.indexOf(CHAINPOINTv2_VALID_HASHTYPES, hashType) == -1) return _errorResult('Invalid Chainpoint type - ' + receiptType);
 
         // Find the target hash
         var targetHash = receipt.targetHash;
@@ -192,6 +193,14 @@ var ChainpointValidate = function () {
 
         if (!_.isArray(proof)) return _errorResult('Invalid proof - ' + proof);
 
+        // ensure proof values are hex
+        var allHex = true;
+        for(var x = 0; x < proof.length; x ++) {
+            var proofItemValue = proof[x].left || proof[x].right;
+            if (!proofItemValue || !_isHex(proofItemValue)) allHex = false;
+        }
+        if (!allHex) return _errorResult('Invalid proof path');
+
         // ensure proof path leads to merkle root
         var merkleToolsOptions = {
             hashType: hashType
@@ -208,12 +217,12 @@ var ChainpointValidate = function () {
         if (anchors.length === 0) return _errorResult('Empty anchors array');
 
         // Validate each anchor item contents
-        _(anchors).forEach(function (anchorItem) {
-            var anchorType = anchorItem.type || anchorItem['@type'];
+        for(x = 0; x < anchors.length; x++) {
+            var anchorType = anchors[x].type || anchors[x]['@type'];
             if (!anchorType) return _errorResult('Missing anchor type');
             if (_.indexOf(CHAINPOINTv2_VALID_ANCHORTYPES, anchorType) == -1) return _errorResult('Invalid anchor type - ' + anchorType);
 
-            var sourceId = anchorItem.sourceId;
+            var sourceId = anchors[x].sourceId;
             if (!sourceId) return _errorResult('Missing sourceId');
 
             switch (anchorType) {
@@ -230,11 +239,12 @@ var ChainpointValidate = function () {
                         {
                         }
                 }
-                anchorItem.exists = exists;
+                anchors[x].exists = exists;
             }
 
-        });
+        }
 
+            return _validResult(merkleRoot, anchors);
 
 
 
@@ -253,6 +263,11 @@ var ChainpointValidate = function () {
             merkleRoot: merkleRoot,
             anchors: anchorArray
         };
+    }
+
+    function _isHex(value) {
+        var hexRegex = /^[0-9A-Fa-f]{2,}$/;
+        return hexRegex.test(value);
     }
 };
 
