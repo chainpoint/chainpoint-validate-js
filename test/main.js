@@ -1,16 +1,19 @@
 var should = require('should');
 var chainpointvalidate = require('../chainpointvalidate.js');
 
+
 describe("Testing v1.x receipts - ", function () {
 
     describe("Using nullReceipt - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var nullReceipt = null;
-        var result = chainpointValidate.isValidReceipt(nullReceipt);
-        it("should receive error - bad Json", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot parse receipt JSON');
+        it("should receive error - bad Json", function (done) {
+            chainpointValidate.isValidReceipt(nullReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot parse receipt JSON');
+                done();
+            });
         });
 
     });
@@ -19,10 +22,12 @@ describe("Testing v1.x receipts - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var stringReceipt = 'dfsgsfgxcvbasfdg';
-        var result = chainpointValidate.isValidReceipt(stringReceipt);
-        it("should receive error - bad Json", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot parse receipt JSON');
+        it("should receive error - bad Json", function (done) {
+            chainpointValidate.isValidReceipt(stringReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot parse receipt JSON');
+                done();
+            });
         });
 
     });
@@ -31,10 +36,12 @@ describe("Testing v1.x receipts - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var numberReceipt = 435345;
-        var result = chainpointValidate.isValidReceipt(numberReceipt);
-        it("should receive error - unknown version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot identify Chainpoint version');
+        it("should receive error - unknown version", function (done) {
+            chainpointValidate.isValidReceipt(numberReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot identify Chainpoint version');
+                done();
+            });
         });
 
     });
@@ -43,10 +50,12 @@ describe("Testing v1.x receipts - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var emptyReceipt = {};
-        var result = chainpointValidate.isValidReceipt(emptyReceipt);
-        it("should receive error - unknown version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot identify Chainpoint version');
+        it("should receive error - unknown version", function (done) {
+            chainpointValidate.isValidReceipt(emptyReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot identify Chainpoint version');
+                done();
+            });
         });
 
     });
@@ -55,10 +64,12 @@ describe("Testing v1.x receipts - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var junkReceiptObject = { 'sdf': 23424 };
-        var result = chainpointValidate.isValidReceipt(junkReceiptObject);
-        it("should receive error - unknown version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot identify Chainpoint version');
+        it("should receive error - unknown version", function (done) {
+            chainpointValidate.isValidReceipt(junkReceiptObject, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot identify Chainpoint version');
+                done();
+            });
         });
 
     });
@@ -67,10 +78,12 @@ describe("Testing v1.x receipts - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var junkReceiptString = '{ "sdf": 23424 }';
-        var result = chainpointValidate.isValidReceipt(junkReceiptString);
-        it("should receive error - unknown version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot identify Chainpoint version');
+        it("should receive error - unknown version", function (done) {
+            chainpointValidate.isValidReceipt(junkReceiptString, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot identify Chainpoint version');
+                done();
+            });
         });
 
     });
@@ -84,12 +97,14 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badVersionNumberReceipt);
-        it("should receive error - bad version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid Chainpoint version - ' + badVersionNumberReceipt.header.chainpoint_version);
-        });
+        it("should receive error - bad version", function (done) {
+            chainpointValidate.isValidReceipt(badVersionNumberReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid Chainpoint version - ' + badVersionNumberReceipt.header.chainpoint_version);
+                done();
+            });
 
+        });
     });
 
     describe("Using missingHashTypeReceipt - ", function () {
@@ -101,10 +116,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(missingHashTypeReceipt);
-        it("should receive error - missing hashtype", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing hash type');
+        it("should receive error - missing hashtype", function (done) {
+            chainpointValidate.isValidReceipt(missingHashTypeReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing hash type');
+                done();
+            });
         });
 
     });
@@ -119,10 +136,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badHashTypeReceipt);
-        it("should receive error - bad hashtype", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid hash type - ' + badHashTypeReceipt.header.hash_type);
+        it("should receive error - bad hashtype", function (done) {
+            chainpointValidate.isValidReceipt(badHashTypeReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid hash type - ' + badHashTypeReceipt.header.hash_type);
+                done();
+            });
         });
 
     });
@@ -137,10 +156,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(missingRootReceipt);
-        it("should receive error - missing merkle root", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing merkle root');
+        it("should receive error - missing merkle root", function (done) {
+            chainpointValidate.isValidReceipt(missingRootReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing merkle root');
+                done();
+            });
         });
 
     });
@@ -156,10 +177,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badRootReceipt);
-        it("should receive error - bad merkle root", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid merkle root - ' + badRootReceipt.header.merkle_root);
+        it("should receive error - bad merkle root", function (done) {
+            chainpointValidate.isValidReceipt(badRootReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid merkle root - ' + badRootReceipt.header.merkle_root);
+                done();
+            });
         });
 
     });
@@ -175,10 +198,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTxReceipt);
-        it("should receive error - missing txId", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing transaction Id');
+        it("should receive error - missing txId", function (done) {
+            chainpointValidate.isValidReceipt(missingTxReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing transaction Id');
+                done();
+            });
         });
 
     });
@@ -195,10 +220,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badTxReceipt);
-        it("should receive error - bad txId", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid transaction Id - ' + badTxReceipt.header.tx_id);
+        it("should receive error - bad txId", function (done) {
+            chainpointValidate.isValidReceipt(badTxReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid transaction Id - ' + badTxReceipt.header.tx_id);
+                done();
+            });
         });
 
     });
@@ -215,10 +242,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTimestampReceipt);
-        it("should receive error - missing timestamp", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing timestamp');
+        it("should receive error - missing timestamp", function (done) {
+            chainpointValidate.isValidReceipt(missingTimestampReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing timestamp');
+                done();
+            });
         });
 
     });
@@ -236,10 +265,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badTimestampReceipt);
-        it("should receive error - bad timestamp", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid timestamp - ' + badTimestampReceipt.header.timestamp);
+        it("should receive error - bad timestamp", function (done) {
+            chainpointValidate.isValidReceipt(badTimestampReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid timestamp - ' + badTimestampReceipt.header.timestamp);
+                done();
+            });
         });
 
     });
@@ -257,10 +288,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(noTargetReceipt);
-        it("should receive error - missing target", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target');
+        it("should receive error - missing target", function (done) {
+            chainpointValidate.isValidReceipt(noTargetReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target');
+                done();
+            });
         });
 
     });
@@ -279,10 +312,12 @@ describe("Testing v1.x receipts - ", function () {
             "target": {}
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTargethashReceipt);
-        it("should receive error - missing target hash", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target hash');
+        it("should receive error - missing target hash", function (done) {
+            chainpointValidate.isValidReceipt(missingTargethashReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target hash');
+                done();
+            });
         });
 
     });
@@ -303,10 +338,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badTargethashReceipt);
-        it("should receive error - bad target hash", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid target hash - ' + badTargethashReceipt.target.target_hash);
+        it("should receive error - bad target hash", function (done) {
+            chainpointValidate.isValidReceipt(badTargethashReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target hash - ' + badTargethashReceipt.target.target_hash);
+                done();
+            });
         });
 
     });
@@ -327,10 +364,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTargetproofReceipt);
-        it("should receive error - missing target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target proof');
+        it("should receive error - missing target proof", function (done) {
+            chainpointValidate.isValidReceipt(missingTargetproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target proof');
+                done();
+            });
         });
 
     });
@@ -352,10 +391,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target proof');
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target proof');
+                done();
+            });
         });
     });
 
@@ -376,10 +417,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target proof');
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target proof');
+                done();
+            });
         });
     });
 
@@ -400,10 +443,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+                done();
+            });
         });
     });
 
@@ -424,10 +469,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+                done();
+            });
         });
     });
 
@@ -448,10 +495,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target proof - ' + badproofReceipt.target.target_proof);
+                done();
+            });
         });
     });
 
@@ -473,10 +522,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
 
     });
@@ -508,10 +559,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -543,10 +596,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -578,10 +633,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -613,10 +670,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -647,10 +706,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -682,10 +743,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -717,10 +780,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -752,10 +817,12 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(invalidWithProofReceipt);
-        it("should be invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should be invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(invalidWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -776,15 +843,17 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(validEmptyProofReceipt);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
-            result.should.not.have.property('error');
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(validEmptyProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
+                result.should.not.have.property('error');
+                done();
+            });
         });
 
     });
@@ -817,17 +886,19 @@ describe("Testing v1.x receipts - ", function () {
             }
         };
 
-        var result = chainpointValidate.isValidReceipt(validWithProofReceipt);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
-            result.should.not.have.property('error');
-        });
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(validWithProofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.should.not.have.property('error');
+                done();
+            });
 
+        });
     });
 
     describe("Using invalidWithProofReceiptString empty- ", function () {
@@ -835,10 +906,12 @@ describe("Testing v1.x receipts - ", function () {
         var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceiptString = "";
 
-        var result = chainpointValidate.isValidReceipt("invalidWithProofReceiptString");
-        it("should be unparsable", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot parse receipt JSON');
+        it("should be unparsable", function (done) {
+            chainpointValidate.isValidReceipt("invalidWithProofReceiptString", false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot parse receipt JSON');
+                done();
+            });
         });
 
     });
@@ -848,12 +921,14 @@ describe("Testing v1.x receipts - ", function () {
         var chainpointValidate = chainpointvalidate();
         var invalidWithProofReceiptString = "dfgdfgdfg";
 
-        var result = chainpointValidate.isValidReceipt("invalidWithProofReceiptString");
-        it("should be unparsable", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Cannot parse receipt JSON');
-        });
+        it("should be unparsable", function (done) {
+            chainpointValidate.isValidReceipt("invalidWithProofReceiptString", false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Cannot parse receipt JSON');
+                done();
+            });
 
+        });
     });
 
     describe("Using validWithProofReceiptString - ", function () {
@@ -861,17 +936,136 @@ describe("Testing v1.x receipts - ", function () {
         var chainpointValidate = chainpointvalidate();
         var validWithProofReceiptString = "{\"header\": {\n                \"chainpoint_version\": \"1.1\",\n                \"hash_type\": \"SHA-256\",\n                \"merkle_root\": \"5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c\",\n                \"tx_id\": \"b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09\",\n                \"timestamp\": 1445033433\n            },\n            \"target\": {\n                \"target_hash\": \"cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65\",\n                \"target_proof\": [\n                    {\n                        \"parent\": \"4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9\",\n                        \"left\": \"cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65\",\n                        \"right\": \"a52d9c0a0b077237f58c7e5b8b38d2dd7756176ca379947a093105574a465685\"\n                    },\n                    {\n                        \"parent\": \"5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c\",\n                        \"left\": \"4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9\",\n                        \"right\": \"3bd99c8660a226a62a7df1efc2a296a398ad91e2aa56d68fefd08571a853096e\"\n                    }\n                ]\n            }\n        }";
 
-        var result = chainpointValidate.isValidReceipt(validWithProofReceiptString);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
-            result.should.not.have.property('error');
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(validWithProofReceiptString, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.should.not.have.property('error');
+                done();
+            });
         });
 
+    });
+
+    describe("Using validWithProofReceiptwithConfirmationBad - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "header": {
+                "chainpoint_version": "1.1",
+                "hash_type": "SHA-256",
+                "merkle_root": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
+                "tx_id": "aa4a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09",
+                "timestamp": 1445033433
+            },
+            "target": {
+                "target_hash": "cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65",
+                "target_proof": [
+                    {
+                        "parent": "4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9",
+                        "left": "cbda53ca51a184b366cbde3cb026987c53021de26fa5aabf814917c894769b65",
+                        "right": "a52d9c0a0b077237f58c7e5b8b38d2dd7756176ca379947a093105574a465685"
+                    },
+                    {
+                        "parent": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
+                        "left": "4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9",
+                        "right": "3bd99c8660a226a62a7df1efc2a296a398ad91e2aa56d68fefd08571a853096e"
+                    }
+                ]
+            }
+        };
+
+
+        it("should be considered valid, bad anchor", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'aa4a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.have.property('exists', false);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using validWithProofReceiptwithConfirmationOK - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "header": {
+                "chainpoint_version": "1.1",
+                "hash_type": "SHA-256",
+                "merkle_root": "1d5c6418eb821aca1d34fac7ee5ec490541860a0ef1c99f3ba2c7b1d00dbe607",
+                "tx_id": "2cabd868b1baca2060f93eb7ea7ece24ec4e01d04a18945b91a77b381ac7a14c",
+                "timestamp": 1453781412
+            },
+            "target": {
+                "target_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+                "target_proof": [
+                    {
+                        "parent": "1d5c6418eb821aca1d34fac7ee5ec490541860a0ef1c99f3ba2c7b1d00dbe607",
+                        "left": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+                        "right": "23f67820feaca41c22ae3c836a1548508c478ee6f1999f850c3a5b0e860e26b6"
+                    }
+                ]
+            }
+        };
+
+
+        it("should be considered valid, bad anchor", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "1d5c6418eb821aca1d34fac7ee5ec490541860a0ef1c99f3ba2c7b1d00dbe607");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', '2cabd868b1baca2060f93eb7ea7ece24ec4e01d04a18945b91a77b381ac7a14c');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
+
+    describe("Using validNoProofReceiptwithConfirmationOK - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "header": {
+                "chainpoint_version": "1.1",
+                "hash_type": "SHA-256",
+                "merkle_root": "17a2c1ebd89886f3118237a09f47ee237fd5b5d3df996d431e41573a4131d7db",
+                "tx_id": "786463d911de1507fd774d216149caa4bcac1b2393f5a865022058dd0c37f793",
+                "timestamp": 1453808412
+            },
+            "target": {
+                "target_hash": "17a2c1ebd89886f3118237a09f47ee237fd5b5d3df996d431e41573a4131d7db",
+                "target_proof": []
+            }
+        };
+
+
+        it("should be considered valid, bad anchor", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "17a2c1ebd89886f3118237a09f47ee237fd5b5d3df996d431e41573a4131d7db");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', '786463d911de1507fd774d216149caa4bcac1b2393f5a865022058dd0c37f793');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
     });
 });
 
@@ -885,10 +1079,12 @@ describe("Testing v2.x receipts - ", function () {
             "type": "ChainpointSHA256v35"
         };
 
-        var result = chainpointValidate.isValidReceipt(badVersionNumberReceipt);
-        it("should receive error - bad version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid Chainpoint type - ' + badVersionNumberReceipt.type);
+        it("should receive error - bad version", function (done) {
+            chainpointValidate.isValidReceipt(badVersionNumberReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid Chainpoint type - ' + badVersionNumberReceipt.type);
+                done();
+            });
         });
 
     });
@@ -901,10 +1097,12 @@ describe("Testing v2.x receipts - ", function () {
             "@type": "ChainpointSHA256v35"
         };
 
-        var result = chainpointValidate.isValidReceipt(badVersionNumberReceipt);
-        it("should receive error - bad version", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid Chainpoint type - ' + badVersionNumberReceipt['@type']);
+        it("should receive error - bad version", function (done) {
+            chainpointValidate.isValidReceipt(badVersionNumberReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid Chainpoint type - ' + badVersionNumberReceipt['@type']);
+                done();
+            });
         });
 
     });
@@ -917,10 +1115,12 @@ describe("Testing v2.x receipts - ", function () {
             "@type": "Chainpointv2"
         };
 
-        var result = chainpointValidate.isValidReceipt(missingHashTypeReceipt);
-        it("should receive error - missing hashtype", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid Chainpoint type - ' + missingHashTypeReceipt['@type']);
+        it("should receive error - missing hashtype", function (done) {
+            chainpointValidate.isValidReceipt(missingHashTypeReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid Chainpoint type - ' + missingHashTypeReceipt['@type']);
+                done();
+            });
         });
 
     });
@@ -933,10 +1133,12 @@ describe("Testing v2.x receipts - ", function () {
             "@type": "ChainpointSHA2048v2"
         };
 
-        var result = chainpointValidate.isValidReceipt(badHashTypeReceipt);
-        it("should receive error - bad hashtype", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid Chainpoint type - ' + badHashTypeReceipt['@type']);
+        it("should receive error - bad hashtype", function (done) {
+            chainpointValidate.isValidReceipt(badHashTypeReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid Chainpoint type - ' + badHashTypeReceipt['@type']);
+                done();
+            });
         });
 
     });
@@ -949,10 +1151,12 @@ describe("Testing v2.x receipts - ", function () {
             "@type": "ChainpointSHA256v2"
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTargethashReceipt);
-        it("should receive error - missing target hash", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing target hash');
+        it("should receive error - missing target hash", function (done) {
+            chainpointValidate.isValidReceipt(missingTargethashReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target hash');
+                done();
+            });
         });
 
     });
@@ -966,10 +1170,12 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "badhash"
         };
 
-        var result = chainpointValidate.isValidReceipt(badTargethashReceipt);
-        it("should receive error - bad target hash", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid target hash - badhash');
+        it("should receive error - bad target hash", function (done) {
+            chainpointValidate.isValidReceipt(badTargethashReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target hash - badhash');
+                done();
+            });
         });
 
     });
@@ -983,10 +1189,12 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "f17fbe8fc1a6e5a8289da6fea45d16a92b35c629fa1fd34178245420378bea19"
         };
 
-        var result = chainpointValidate.isValidReceipt(missingRootReceipt);
-        it("should receive error - missing merkle root", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing merkle root');
+        it("should receive error - missing merkle root", function (done) {
+            chainpointValidate.isValidReceipt(missingRootReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing merkle root');
+                done();
+            });
         });
 
     });
@@ -1001,10 +1209,12 @@ describe("Testing v2.x receipts - ", function () {
             "merkleRoot": "badroothash"
         };
 
-        var result = chainpointValidate.isValidReceipt(badRootReceipt);
-        it("should receive error - bad merkle root", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid merkle root - badroothash');
+        it("should receive error - bad merkle root", function (done) {
+            chainpointValidate.isValidReceipt(badRootReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid merkle root - badroothash');
+                done();
+            });
         });
 
     });
@@ -1019,10 +1229,12 @@ describe("Testing v2.x receipts - ", function () {
             "merkleRoot": "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404"
         };
 
-        var result = chainpointValidate.isValidReceipt(missingTargetproofReceipt);
-        it("should receive error - missing target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing proof');
+        it("should receive error - missing target proof", function (done) {
+            chainpointValidate.isValidReceipt(missingTargetproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing proof');
+                done();
+            });
         });
 
     });
@@ -1038,10 +1250,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": null
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing proof');
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing proof');
+                done();
+            });
         });
     });
 
@@ -1056,10 +1270,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": ""
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing proof');
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing proof');
+                done();
+            });
         });
     });
 
@@ -1074,10 +1290,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": "dfgdfg"
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+                done();
+            });
         });
     });
 
@@ -1092,10 +1310,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": {}
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+                done();
+            });
         });
     });
 
@@ -1110,10 +1330,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": { parent: "something" }
         };
 
-        var result = chainpointValidate.isValidReceipt(badproofReceipt);
-        it("should receive error - bad target proof", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+        it("should receive error - bad target proof", function (done) {
+            chainpointValidate.isValidReceipt(badproofReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof - ' + badproofReceipt.proof);
+                done();
+            });
         });
     });
 
@@ -1128,10 +1350,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": []
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
 
     });
@@ -1147,10 +1371,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": [{ parent: "something" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -1165,10 +1391,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": [{ right: "something" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -1183,10 +1411,12 @@ describe("Testing v2.x receipts - ", function () {
             "proof": [{ right: "a99fbe8fc1a6e5a8289da6fea45d16a92b35c629fa1fd34178245420378bea19" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -1203,10 +1433,12 @@ describe("Testing v2.x receipts - ", function () {
                 { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -1223,10 +1455,12 @@ describe("Testing v2.x receipts - ", function () {
                 { right: "3009bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(emptyProofInvalidReceipt);
-        it("should receive error - invalid proof path", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid proof path');
+        it("should receive error - invalid proof path", function (done) {
+            chainpointValidate.isValidReceipt(emptyProofInvalidReceipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid proof path');
+                done();
+            });
         });
     });
 
@@ -1243,13 +1477,17 @@ describe("Testing v2.x receipts - ", function () {
                 { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - missing anchors", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing anchors');
+        it("should receive error - missing anchors", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchors');
+                done();
+            });
         });
-
     });
+
+
+
 
     describe("Using badanchorsReceipt null - ", function () {
 
@@ -1265,10 +1503,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": null
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing anchors');
+        it("should receive error - invalid anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchors');
+                done();
+            });
         });
     });
 
@@ -1286,10 +1526,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": ""
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing anchors');
+        it("should receive error - invalid anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchors');
+                done();
+            });
         });
     });
 
@@ -1307,14 +1549,16 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": "dfgdfg"
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+        it("should receive error - invalid anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+                done();
+            });
         });
     });
 
-    describe("Using badproofReceipt {}- ", function () {
+    describe("Using badanchorsReceipt {}- ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var receipt = {
@@ -1328,10 +1572,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": {}
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+        it("should receive error - invalid anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+                done();
+            });
         });
     });
 
@@ -1349,10 +1595,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": { something: "something" }
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+        it("should receive error - invalid anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors array - ' + receipt.anchors);
+                done();
+            });
         });
     });
 
@@ -1370,10 +1618,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": []
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - empty anchors array", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Empty anchors array');
+        it("should receive error - empty anchors array", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Empty anchors array');
+                done();
+            });
         });
 
     });
@@ -1392,10 +1642,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ something: "something" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - Missing anchor type", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing anchor type');
+        it("should receive error - Missing anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchor type');
+                done();
+            });
         });
 
     });
@@ -1414,10 +1666,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ type: "something" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchor type", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0].type);
+        it("should receive error - invalid anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0].type);
+                done();
+            });
         });
 
     });
@@ -1436,10 +1690,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ "@type": "something" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - invalid anchor type", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0]["@type"]);
+        it("should receive error - invalid anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0]["@type"]);
+                done();
+            });
         });
 
     });
@@ -1458,12 +1714,13 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ "@type": "BTCOpReturn" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - Missing anchor type", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Missing sourceId');
+        it("should receive error - Missing anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing sourceId');
+                done();
+            });
         });
-
     });
 
     describe("Using invalidsourceAnchorsInvalidReceipt - ", function () {
@@ -1480,10 +1737,12 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ "@type": "BTCOpReturn", "sourceId": [{ sdf: "Dfgdfg" }] }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should receive error - Invalid anchor type", function () {
-            result.should.have.property('isValid', false);
-            result.should.have.property('error', 'Invalid sourceId for BTCOpReturn - ' + receipt.anchors[0].sourceId);
+        it("should receive error - Invalid anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid sourceId for BTCOpReturn - ' + receipt.anchors[0].sourceId);
+                done();
+            });
         });
 
     });
@@ -1500,15 +1759,18 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ "@type": "BTCOpReturn", "sourceId": "6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('@type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
-            result.should.not.have.property('error');
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('@type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
         });
 
     });
@@ -1527,15 +1789,18 @@ describe("Testing v2.x receipts - ", function () {
             "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
         };
 
-        var result = chainpointValidate.isValidReceipt(receipt);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
-            result.should.not.have.property('error');
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
         });
 
     });
@@ -1545,18 +1810,82 @@ describe("Testing v2.x receipts - ", function () {
         var chainpointValidate = chainpointvalidate();
         var receiptString = "{\n            \"@context\": \"https://w3id.org/chainpoint/v2\",\n            \"@type\": \"ChainpointSHA256v2\",\n            \"targetHash\": \"3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d\",\n            \"merkleRoot\": \"d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba\",\n            \"proof\": [{ \"left\": \"ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\" },\n                { \"right\": \"bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b\" },\n                { \"right\": \"3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea\" }],\n            \"anchors\": [{ \"type\": \"BTCOpReturn\", \"sourceId\": \"b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09\" }]\n        }";
 
-        var result = chainpointValidate.isValidReceipt(receiptString);
-        it("should be considered valid", function () {
-            result.should.have.property('isValid', true);
-            result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
-            result.should.have.property('anchors');
-            result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-            result.anchors[0].should.have.property('type', 'BTCOpReturn');
-            result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
-            result.should.not.have.property('error');
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receiptString, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
         });
 
-    }); 
+    });
+
+    describe("Using validWithProofReceiptwithConfirmationBad - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.have.property('exists', false);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using validWithProofReceiptwithConfirmationOK - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
+            "merkleRoot": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
+            "proof": [],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
+
+
+
 });
 
 
