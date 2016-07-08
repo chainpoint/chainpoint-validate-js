@@ -12,10 +12,10 @@
   },
   "keywords": [
     "Chainpoint",
-    "validate",
-    "verify",
-    "receipt",
+    "Chainpoint receipt",
+    "blockchain receipt",
     "Tierion",
+    "merkle",
     "merkle proof"
   ],
   "author": "Jason Bukowski <jason@tierion.com> (https://tierion.com)",
