@@ -13,8 +13,6 @@ var ChainpointValidate = function () {
         return new ChainpointValidate();
     }
 
-
-
     var CHAINPOINT_VALID_VERSIONS = ['1.0', '1.1', '2'];
     var CHAINPOINTv1_VALID_HASHTYPES = ['SHA-256'];
     var CHAINPOINTv2_VALID_HASHTYPES = ['SHA256', 'SHA512'];
