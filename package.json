@@ -1,8 +1,8 @@
 {
   "name": "chainpoint-validate",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A Node.js module for validating Chainpoint blockchain receipts used by Tierion",
-  "main": "validator.js",
+  "main": "chainpointvalidate.js",
   "scripts": {
     "test": "mocha test/*.js"
   },
