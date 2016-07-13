@@ -26,7 +26,7 @@ chainpointValidate.isValidReceipt(receipt, confirmAnchor, callback);
 #### Example
 
 ```js
-var chainpointvalidate = require('../chainpointvalidate.js');
+var chainpointvalidate = require('chainpoint-validate');
 
 var chainpointValidate = new chainpointvalidate();
 
