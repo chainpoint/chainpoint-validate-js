@@ -1,6 +1,6 @@
 {
   "name": "chainpoint-validate",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A Node.js module for validating Chainpoint blockchain receipts",
   "main": "chainpointvalidate.js",
   "scripts": {
