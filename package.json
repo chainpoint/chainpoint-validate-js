@@ -1,29 +1,28 @@
 {
   "name": "chainpoint-validate",
   "version": "2.0.1",
-  "description": "A Node.js module for validating Chainpoint blockchain receipts used by Tierion",
+  "description": "A Node.js module for validating Chainpoint blockchain receipts",
   "main": "chainpointvalidate.js",
   "scripts": {
     "test": "mocha test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tierion/chainpoint-validate-js.git"
+    "url": "git+https://github.com/chainpoint/chainpoint-validate-js.git"
   },
   "keywords": [
     "Chainpoint",
+    "Chainpoint validate",
     "Chainpoint receipt",
     "blockchain receipt",
-    "Tierion",
-    "merkle",
     "merkle proof"
   ],
   "author": "Jason Bukowski <jason@tierion.com> (https://tierion.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tierion/chainpoint-validate-js/issues"
+    "url": "https://github.com/chainpoint/chainpoint-validate-js/issues"
   },
-  "homepage": "https://github.com/Tierion/chainpoint-validate-js#readme",
+  "homepage": "https://github.com/chainpoint/chainpoint-validate-js#readme",
   "devDependencies": {
     "mocha": "^2.4.5",
     "should": "^8.3.1"
