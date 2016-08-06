@@ -30,15 +30,37 @@ var chainpointvalidate = require('chainpoint-validate');
 
 var chainpointValidate = new chainpointvalidate();
 
-var validReceipt = { /* some valid receipt data */ };
+var validReceipt = {
+ "@context": "https://w3id.org/chainpoint/v2",
+ "type": "ChainpointSHA256v2",
+ "targetHash": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2",
+ "merkleRoot": "51296468ea48ddbcc546abb85b935c73058fd8acdb0b953da6aa1ae966581a7a",
+ "proof": [
+   {
+     "left": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2"
+   },
+   {
+     "left": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faf"
+   },
+   {
+     "right": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faf"
+   }
+ ],
+ "anchors": [
+   {
+     "type": "BTCOpReturn",
+     "sourceId": "f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee"
+   }
+ ]
+};
 var invalidReceipt = "not a receipt";
 
 chainpointValidate.isValidReceipt(validReceipt, true, function (err, result) {
   if(err) {
     // handle this error
   } else {
-    // receipt.isValid will equal true
-    // receipt.anchors will be an array of anchor objects, optionally including
+    // result.isValid will equal true
+    // result.anchors will be an array of anchor objects, optionally including
     // an exists parameter, if you configured validation to confirm the anchor as well
   }
 });
@@ -47,8 +69,8 @@ chainpointValidate.isValidReceipt(invalidReceipt, true, function (err, result) {
   if(err) {
     // handle this error
   } else {
-    // receipt.isValid will equal false
-    // receipt.error will contain a reason why the receipt failed validation
+    // result.isValid will equal false
+    // result.error will contain a reason why the receipt failed validation
   }
 });
 ```
