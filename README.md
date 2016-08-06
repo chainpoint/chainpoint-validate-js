@@ -82,7 +82,7 @@ chainpointValidate.isValidReceipt(invalidReceipt, true, function (err, result) {
   anchors: [
     {
       type: 'BTCOpReturn',
-      sourceId: '4f0398f4707c7ddb8d5a85508bdaa9e22fb541fa0182ae54f25513b6bd3f8cb9',
+      sourceId: 'f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee',
       exists: true
     }
   ]
