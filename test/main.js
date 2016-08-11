@@ -1486,9 +1486,6 @@ describe("Testing v2.x receipts - ", function () {
         });
     });
 
-
-
-
     describe("Using badanchorsReceipt null - ", function () {
 
         var chainpointValidate = chainpointvalidate();
@@ -1882,6 +1879,235 @@ describe("Testing v2.x receipts - ", function () {
                 done();
             });
         });
+    });
+
+
+});
+
+describe("Testing v2.x simple receipt Hash Types - ", function () {
+
+    describe("Using SHA224 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA224v2",
+            "targetHash": "90a3ed9e32b2aaf4c61c410eb925426119e1a9dc53d4286ade99a809",
+            "merkleRoot": "f48bc49bb77d3a3b1c8f8a70db693f41d879189cd1919f8326067ad7",
+            "proof": [{ right: "35f757ad7f998eb6dd3dd1cd3b5c6de97348b84a951f13de25355177" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "f48bc49bb77d3a3b1c8f8a70db693f41d879189cd1919f8326067ad7");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA256 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "1516f000de6cff5c8c63eef081ebcec2ad2fdcf7034db16045d024a90341e07d",
+            "merkleRoot": "77c654b3d1605f78ed091cbd420c939c3feff7d57dc30c171fa45a5a3c81fd7d",
+            "proof": [{ right: "e20af19f85f265579ead2578859bf089c92b76a048606983ad83f27ba8f32f1a" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "77c654b3d1605f78ed091cbd420c939c3feff7d57dc30c171fa45a5a3c81fd7d");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA384 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA384v2",
+            "targetHash": "84ae8c6367d64899aef44a951edfa4833378b9e213f916c5eb8492cc37cb951c726e334dace7dbe4bb1dc80c1efe33d0",
+            "merkleRoot": "c363aa3b824e3f3b927034fab826eff61a9bfa2030ae9fc4598992edf9f3e42f8b497d6742946caf7a771429eb1745cf",
+            "proof": [{ right: "368c89a00446010def75ad7b179cea9a3d24f8cbb7e2755a28638d194809e7b614eb45453665032860b6c1a135fb6e8b" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "c363aa3b824e3f3b927034fab826eff61a9bfa2030ae9fc4598992edf9f3e42f8b497d6742946caf7a771429eb1745cf");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA512 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA512v2",
+            "targetHash": "c0a8907588c1da716ce31cbef05da1a65986ec23afb75cd42327634dd53d754be6c00a22d6862a42be5f51187a8dff695c530a797f7704e4eb4b473a14ab416e",
+            "merkleRoot": "d9d27704a3a785d204257bfa2b217a1890e55453b6686f091fa1be8aa2b265bc06c285a909459996e093546677c3f392458d7b1fc34a994a86689ed4100e8337",
+            "proof": [{ right: "df1e07eccb2a2d4e1b30d11e646ba13ddc426c1aefbefcff3639405762f216fdcc40a684f3d1855e6d465f99fd9547e53fa8a485f18649fedec5448b45963976" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "d9d27704a3a785d204257bfa2b217a1890e55453b6686f091fa1be8aa2b265bc06c285a909459996e093546677c3f392458d7b1fc34a994a86689ed4100e8337");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA3-224 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA3-224v2",
+            "targetHash": "6ed712b9472b671fd70bb950dc4ccfce197c92a7969f6bc2aa6b6d9f",
+            "merkleRoot": "674bc9f53d5c666174cdd3ccb9df04768dfb7759655e7d937aef0c3a",
+            "proof": [{ right: "08db5633d406804d044a3e67683e179b5ee51249ed2139c239d1e65a" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "674bc9f53d5c666174cdd3ccb9df04768dfb7759655e7d937aef0c3a");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA3-256 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA3-256v2",
+            "targetHash": "1d7d4ea1cc029ca460e486642830c284657ea0921235c46298b51f0ed1bb7bf7",
+            "merkleRoot": "6edf674f5ce762e096c3081aee2a0a977732e07f4d704baf34f5e3804db03343",
+            "proof": [{ right: "89b9e14eae37e999b096a6f604adefe7feea4dc240ccecb5e4e92785cffc7070" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "6edf674f5ce762e096c3081aee2a0a977732e07f4d704baf34f5e3804db03343");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA3-384 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA3-384v2",
+            "targetHash": "e222605f939aa69b964a0a03d7075676bb3dbb40c3bd10b22f0adcb149434e7c1085c206f0e3371470a49817aa6d5b16",
+            "merkleRoot": "bd54df0015fa0d4fee713fbf5c8ae232c93239c75fb9d41c7dd7a9278711764a6ee83c81766b3945ed94030254537b57",
+            "proof": [{ right: "ae331b6f8643ed7e404471c81be9a74f73fc84ffd5140a0ec9aa8596fa0d0a2ded5f7b780bb2fbfc4e2226ee2a04a2fa" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "bd54df0015fa0d4fee713fbf5c8ae232c93239c75fb9d41c7dd7a9278711764a6ee83c81766b3945ed94030254537b57");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using SHA3-512 validWithProofReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA3-512v2",
+            "targetHash": "004a237ea808cd9375ee9db9f85625948a890c54e2c30f736f54c969074eb56f0ff3d43dafb4b40d5d974acc1c2a68c046fa4d7c2c20cab6df956514040d0b8b",
+            "merkleRoot": "3dff3f19b67628591d294cba2c07ed20d20d83e1624af8c1dca8fcf096127b9f86435e2d6a84ca4cee526525cacd1c628bf06ee938983413afafbb4598c5862a",
+            "proof": [{ right: "0b43a85d08c05252d0e23c96bc6b1bda11dfa787049ff452b3c86f4c6135e870c058c05131f199ef8619cfac937a736bbc936a667e4d96a5bf68e4056ce5fdce" }],
+            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "3dff3f19b67628591d294cba2c07ed20d20d83e1624af8c1dca8fcf096127b9f86435e2d6a84ca4cee526525cacd1c628bf06ee938983413afafbb4598c5862a");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
     });
 
 

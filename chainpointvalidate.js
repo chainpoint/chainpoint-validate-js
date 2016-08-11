@@ -15,7 +15,7 @@ var ChainpointValidate = function () {
 
     var CHAINPOINT_VALID_VERSIONS = ['1.0', '1.1', '2'];
     var CHAINPOINTv1_VALID_HASHTYPES = ['SHA-256'];
-    var CHAINPOINTv2_VALID_HASHTYPES = ['SHA256', 'SHA512'];
+    var CHAINPOINTv2_VALID_HASHTYPES = ['SHA224', 'SHA256', 'SHA384', 'SHA512', 'SHA3-224', 'SHA3-256', 'SHA3-384', 'SHA3-512'];
     var CHAINPOINTv2_VALID_ANCHORTYPES = ['BTCOpReturn'];
     var blockchainAnchor = new blockchainanchor();
 
@@ -183,17 +183,38 @@ var ChainpointValidate = function () {
 
         if (_.indexOf(CHAINPOINTv2_VALID_HASHTYPES, hashType) == -1) return _errorResult(callback, 'Invalid Chainpoint type - ' + receiptType);
 
+        var hashTestText = '^$';
+        switch (hashType) {
+            case 'SHA224':
+            case 'SHA3-224':
+                hashTestText = '^[A-Fa-f0-9]{56}$';
+                break;
+            case 'SHA256':
+            case 'SHA3-256':
+                hashTestText = '^[A-Fa-f0-9]{64}$';
+                break;
+            case 'SHA384':
+            case 'SHA3-384':
+                hashTestText = '^[A-Fa-f0-9]{96}$';
+                break;
+            case 'SHA512':
+            case 'SHA3-512':
+                hashTestText = '^[A-Fa-f0-9]{128}$';
+                break;
+        }
+        var hashTestRegex = new RegExp(hashTestText);
+
         // Find the target hash
         var targetHash = receipt.targetHash;
         if (!targetHash) return _errorResult(callback, 'Missing target hash');
 
-        if (!/[A-Fa-f0-9]{64}/.test(targetHash)) return _errorResult(callback, 'Invalid target hash - ' + targetHash);
+        if (!hashTestRegex.test(targetHash)) return _errorResult(callback, 'Invalid target hash - ' + targetHash);
 
         // Find the Merkle Root
         var merkleRoot = receipt.merkleRoot;
         if (!merkleRoot) return _errorResult(callback, 'Missing merkle root');
 
-        if (!/[A-Fa-f0-9]{64}/.test(merkleRoot)) return _errorResult(callback, 'Invalid merkle root - ' + merkleRoot);
+        if (!hashTestRegex.test(merkleRoot)) return _errorResult(callback, 'Invalid merkle root - ' + merkleRoot);
 
         // Find the target proof
         var proof = receipt.proof;
@@ -202,12 +223,12 @@ var ChainpointValidate = function () {
         if (!_.isArray(proof)) return _errorResult(callback, 'Invalid proof - ' + proof);
 
         // ensure proof values are hex
-        var allHex = true;
+        var allValidHashes= true;
         for (var x = 0; x < proof.length; x++) {
             var proofItemValue = proof[x].left || proof[x].right;
-            if (!proofItemValue || !_isHex(proofItemValue)) allHex = false;
+            if (!proofItemValue || !hashTestRegex.test(proofItemValue)) allValidHashes = false;
         }
-        if (!allHex) return _errorResult(callback, 'Invalid proof path');
+        if (!allValidHashes) return _errorResult(callback, 'Invalid proof path');
 
         // ensure proof path leads to merkle root
         var merkleToolsOptions = {
@@ -280,11 +301,6 @@ var ChainpointValidate = function () {
             merkleRoot: merkleRoot,
             anchors: anchorArray
         });
-    }
-
-    function _isHex(value) {
-        var hexRegex = /^[0-9A-Fa-f]{2,}$/;
-        return hexRegex.test(value);
     }
 };
 
