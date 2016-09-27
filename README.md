@@ -88,7 +88,8 @@ chainpointValidate.isValidReceipt(invalidReceipt, true, function (err, result) {
   ]
 }
 ```
-The 'exists' value is only added when 'confirmAnchor' was set to true.
+When 'confirmAnchor' is set to true, an additional 'exists' value is added indicating the whether or not the data actually exists in the transaction. This function relies on BlockCypher's API which currently rate limits to 3 per second and 200 per hour. Confirmations requested beyond those limits will return false.
+
 
 ##### Sample Invalid Result
 ```js

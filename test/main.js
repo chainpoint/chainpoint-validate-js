@@ -1720,7 +1720,7 @@ describe("Testing v2.x receipts - ", function () {
         });
     });
 
-    describe("Using invalidsourceAnchorsInvalidReceipt - ", function () {
+    describe("Using invalidsourceBTCAnchorsInvalidReceipt - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var receipt = {
@@ -1744,7 +1744,31 @@ describe("Testing v2.x receipts - ", function () {
 
     });
 
-    describe("Using validEmptyProofReceipt - ", function () {
+    describe("Using invalidsourceETHAnchorsInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "ETHData", "sourceId": [{ sdf: "Dfgdfg" }] }]
+        };
+
+        it("should receive error - Invalid anchor type", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid sourceId for ETHData - ' + receipt.anchors[0].sourceId);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using validEmptyProofBTCReceipt - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var receipt = {
@@ -1764,6 +1788,34 @@ describe("Testing v2.x receipts - ", function () {
                 result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
                 result.anchors[0].should.have.property('@type', 'BTCOpReturn');
                 result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using validEmptyProofETHReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd",
+            "merkleRoot": "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd",
+            "proof": [],
+            "anchors": [{ "@type": "ETHData", "sourceId": "d3e7ec84c3dbe86f7d9a8ea68ae4ded6c0b012be519f433a07f15bd612fb47a9" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('@type', 'ETHData');
+                result.anchors[0].should.have.property('sourceId', 'd3e7ec84c3dbe86f7d9a8ea68ae4ded6c0b012be519f433a07f15bd612fb47a9');
                 result.anchors[0].should.not.have.property('exists');
                 result.should.not.have.property('error');
                 done();
@@ -1854,7 +1906,7 @@ describe("Testing v2.x receipts - ", function () {
 
     });
 
-    describe("Using validWithProofReceiptwithConfirmationOK - ", function () {
+    describe("Using validWithProofReceiptwithBTCConfirmationOK - ", function () {
 
         var chainpointValidate = chainpointvalidate();
         var receipt = {
@@ -1874,6 +1926,33 @@ describe("Testing v2.x receipts - ", function () {
                 result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
                 result.anchors[0].should.have.property('type', 'BTCOpReturn');
                 result.anchors[0].should.have.property('sourceId', 'b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
+
+    describe("Using validWithProofReceiptwithETHConfirmationOK - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd",
+            "merkleRoot": "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd",
+            "proof": [],
+            "anchors": [{ "type": "ETHData", "sourceId": "d3e7ec84c3dbe86f7d9a8ea68ae4ded6c0b012be519f433a07f15bd612fb47a9" }]
+        };
+
+        it("should be considered valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'ETHData');
+                result.anchors[0].should.have.property('sourceId', 'd3e7ec84c3dbe86f7d9a8ea68ae4ded6c0b012be519f433a07f15bd612fb47a9');
                 result.anchors[0].should.have.property('exists', true);
                 result.should.not.have.property('error');
                 done();

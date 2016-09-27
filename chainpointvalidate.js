@@ -16,7 +16,7 @@ var ChainpointValidate = function () {
     var CHAINPOINT_VALID_VERSIONS = ['1.0', '1.1', '2'];
     var CHAINPOINTv1_VALID_HASHTYPES = ['SHA-256'];
     var CHAINPOINTv2_VALID_HASHTYPES = ['SHA224', 'SHA256', 'SHA384', 'SHA512', 'SHA3-224', 'SHA3-256', 'SHA3-384', 'SHA3-512'];
-    var CHAINPOINTv2_VALID_ANCHORTYPES = ['BTCOpReturn'];
+    var CHAINPOINTv2_VALID_ANCHORTYPES = ['BTCOpReturn', 'ETHData'];
     var blockchainAnchor = new blockchainanchor();
 
 
@@ -257,7 +257,13 @@ var ChainpointValidate = function () {
             switch (anchorType) {
                 case 'BTCOpReturn':
                     {
-                        if (!/[A-Fa-f0-9]{64}/.test(sourceId)) return _errorResult(callback, 'Invalid sourceId for BTCOpReturn - ' + sourceId);
+                        if (!/^[A-Fa-f0-9]{64}$/.test(sourceId)) return _errorResult(callback, 'Invalid sourceId for BTCOpReturn - ' + sourceId);
+                        break;
+                    }
+                case 'ETHData':
+                    {
+                        if (!/^[A-Fa-f0-9]{64}$/.test(sourceId)) return _errorResult(callback, 'Invalid sourceId for ETHData - ' + sourceId);
+                        break;
                     }
             }
         }
@@ -269,6 +275,19 @@ var ChainpointValidate = function () {
                     case 'BTCOpReturn':
                         {
                             blockchainAnchor.confirm(anchorItem.sourceId, merkleRoot, function (err, result) {
+                                if (err) {
+                                    anchorCallback(err);
+                                } else {
+                                    anchorItem.exists = result;
+                                    anchorCallback();
+                                }
+                            });
+                        }
+                }
+                switch (anchorType) {
+                    case 'ETHData':
+                        {
+                            blockchainAnchor.confirmEth(anchorItem.sourceId, merkleRoot, function (err, result) {
                                 if (err) {
                                     anchorCallback(err);
                                 } else {

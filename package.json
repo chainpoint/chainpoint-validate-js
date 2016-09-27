@@ -1,6 +1,6 @@
 {
   "name": "chainpoint-validate",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A Node.js module for validating Chainpoint blockchain receipts",
   "main": "chainpointvalidate.js",
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "async": "^1.5.2",
-    "blockchain-anchor": "^1.1.0",
+    "blockchain-anchor": "^1.2.0",
     "crypto": "0.0.3",
     "lodash": "^4.12.0",
     "merkle-tools": "^1.1.0"
