@@ -1,5 +1,5 @@
 var should = require('should');
-var chainpointvalidate = require('../chainpointvalidate.js');
+var chainpointvalidate = require('../src/chainpointvalidate.js');
 
 
 describe("Testing v1.x receipts - ", function () {
@@ -1992,7 +1992,6 @@ describe("Testing v2.x simple receipt Hash Types - ", function () {
         });
 
     });
-
     describe("Using SHA256 validWithProofReceipt - ", function () {
 
         var chainpointValidate = chainpointvalidate();
@@ -2188,7 +2187,6 @@ describe("Testing v2.x simple receipt Hash Types - ", function () {
         });
 
     });
-
 
 
 });
