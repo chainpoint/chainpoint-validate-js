@@ -294,6 +294,39 @@ var ChainpointValidate = function () {
                         if (!/^[A-Fa-f0-9]{64}$/.test(sourceId)) return callback('Invalid sourceId for ETHData - ' + sourceId);
                         break;
                     }
+                case 'BTCBlockHeader':
+                    {
+                        // check sourceId exists and is an integer
+                        if (!rgxs.isInt(sourceId)) return callback('Invalid sourceId for BTCBlockHeader - ' + sourceId);
+
+                        // check tx exists, is a hex string, and contains the merkle root value
+                        var tx = anchors[x].tx;
+                        if (!tx) return callback('Missing tx value');
+                        if (!rgxs.isHex(tx)) return callback('Invalid tx value');
+                        if (tx.indexOf(receipt.merkleRoot) === -1) return callback('Merkle root not found in tx value');
+
+                        // Find the block proof
+                        var blockProof = receipt.anchors[x].blockProof;
+                        if (!blockProof) return callback('Missing block proof');
+
+                        if (!_.isArray(blockProof)) return callback('Invalid block proof - ' + blockProof);
+                        if (blockProof.length === 0) return callback('Invalid block proof');
+
+                        // ensure block proof values are hex
+                        allValidHashes = true;
+                        for (var y = 0; y < blockProof.length; y++) {
+                            var blockProofItemValue = blockProof[y].left || blockProof[y].right;
+                            if (!blockProofItemValue || !hashTestRegex.test(blockProofItemValue)) allValidHashes = false;
+                        }
+                        if (!allValidHashes) return callback('Invalid block proof path');
+
+                        // reduce anchor item to basic data for return value
+                        //var anchorSummary = {};
+                        //anchorSummary.type = 'BTCBlockHeader';
+                        //anchorSummary.sourceId = anchors[x].sourceId;
+                        //anchors[x] = anchorSummary;
+                        break;
+                    }
             }
         }
 
@@ -311,9 +344,8 @@ var ChainpointValidate = function () {
                                     anchorCallback();
                                 }
                             });
+                            break;
                         }
-                }
-                switch (anchorType) {
                     case 'ETHData':
                         {
                             blockchainAnchor.confirmEth(anchorItem.sourceId, merkleRoot, function (err, result) {
@@ -324,13 +356,57 @@ var ChainpointValidate = function () {
                                     anchorCallback();
                                 }
                             });
+                            break;
+                        }
+                    case 'BTCBlockHeader':
+                        {
+                            var hashResult = new Buffer(anchorItem.tx, 'hex');
+
+                            hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                            hashResult = crypto.createHash('sha256').update(hashResult).digest(); // this should be the tx id
+                            for (var x = 0; x < anchorItem.blockProof.length; x++) {
+                                if (anchorItem.blockProof[x].left) {
+                                    hashResult = Buffer.concat([new Buffer(anchorItem.blockProof[x].left, 'hex'), hashResult]);
+                                } else if (anchorItem.blockProof[x].right) {
+                                    hashResult = Buffer.concat([hashResult, new Buffer(anchorItem.blockProof[x].right, 'hex')]);
+                                }
+                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                            }
+                            var hashResultHex = hashResult.toString('hex').match(/.{2}/g).reverse().join(''); // reverse bytes
+                            blockchainAnchor.confirmBTCBlockHeader(anchorItem.sourceId, hashResultHex, function (err, result) {
+                                if (err) {
+                                    anchorCallback(err);
+                                } else {
+                                    anchorItem.exists = result;
+                                    anchorCallback();
+                                }
+                            });
+                            break;
                         }
                 }
             }, function (err) {
                 if (err) return callback(err);
+
+                for (x = 0; x < anchors.length; x++) {
+                    var anchorSummary = {};
+                    var aType = anchors[x].type || anchors[x]['@type'];
+                    anchorSummary.type = aType;
+                    anchorSummary.sourceId = anchors[x].sourceId;
+                    anchorSummary.exists = anchors[x].exists;
+                    anchors[x] = anchorSummary;
+                }
+
                 return callback(null, merkleRoot, anchors);
             });
         } else {
+            for (x = 0; x < anchors.length; x++) {
+                var anchorSummary = {};
+                var aType = anchors[x].type || anchors[x]['@type'];
+                anchorSummary.type = aType;
+                anchorSummary.sourceId = anchors[x].sourceId;
+                anchors[x] = anchorSummary;
+            }
             return callback(null, merkleRoot, anchors);
         }
 

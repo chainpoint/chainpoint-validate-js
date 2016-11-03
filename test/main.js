@@ -1429,8 +1429,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "b00e0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
+            { right: "b00e0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
         it("should receive error - invalid proof path", function (done) {
@@ -1451,8 +1451,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3009bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3009bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
         it("should receive error - invalid proof path", function (done) {
@@ -1473,8 +1473,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }]
         };
 
         it("should receive error - missing anchors", function (done) {
@@ -1495,8 +1495,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": null
         };
 
@@ -1518,8 +1518,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": ""
         };
 
@@ -1541,8 +1541,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": "dfgdfg"
         };
 
@@ -1564,8 +1564,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": {}
         };
 
@@ -1587,8 +1587,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": { something: "something" }
         };
 
@@ -1610,8 +1610,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": []
         };
 
@@ -1634,8 +1634,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ something: "something" }]
         };
 
@@ -1658,8 +1658,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ type: "something" }]
         };
 
@@ -1682,8 +1682,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "@type": "something" }]
         };
 
@@ -1706,8 +1706,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "@type": "BTCOpReturn" }]
         };
 
@@ -1729,8 +1729,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "@type": "BTCOpReturn", "sourceId": [{ sdf: "Dfgdfg" }] }]
         };
 
@@ -1753,8 +1753,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "@type": "ETHData", "sourceId": [{ sdf: "Dfgdfg" }] }]
         };
 
@@ -1786,7 +1786,7 @@ describe("Testing v2.x receipts - ", function () {
                 result.should.have.property('merkleRoot', "fd3f0550fd1164f463d3e57b7bb6834872ada68501102cec6ce93cdbe7a17404");
                 result.should.have.property('anchors');
                 result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-                result.anchors[0].should.have.property('@type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
                 result.anchors[0].should.have.property('sourceId', '6d14a219a9aef975377bad9236cbc4e1e062cb5dd29b3dd3c1a1cb63540c1c9a');
                 result.anchors[0].should.not.have.property('exists');
                 result.should.not.have.property('error');
@@ -1814,7 +1814,7 @@ describe("Testing v2.x receipts - ", function () {
                 result.should.have.property('merkleRoot', "2b10349367c46a91c485abca4f7834454118d631f28996fb2908a0fe8cefa0cd");
                 result.should.have.property('anchors');
                 result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
-                result.anchors[0].should.have.property('@type', 'ETHData');
+                result.anchors[0].should.have.property('type', 'ETHData');
                 result.anchors[0].should.have.property('sourceId', 'd3e7ec84c3dbe86f7d9a8ea68ae4ded6c0b012be519f433a07f15bd612fb47a9');
                 result.anchors[0].should.not.have.property('exists');
                 result.should.not.have.property('error');
@@ -1833,8 +1833,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
         };
 
@@ -1884,8 +1884,8 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
             "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
             "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
-                { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
-                { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
             "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
         };
 
@@ -1915,7 +1915,7 @@ describe("Testing v2.x receipts - ", function () {
             "targetHash": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
             "merkleRoot": "5faa75ca2c838ceac7fb1b62127cfba51f011813c6c491335c2b69d54dd7d79c",
             "proof": [],
-            "anchors": [{ "type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
+            "anchors": [{ "@type": "BTCOpReturn", "sourceId": "b84a92f28cc9dbdc4cd51834f6595cf97f018b925167c299097754780d7dea09" }]
         };
 
         it("should be considered valid", function (done) {
@@ -1960,6 +1960,458 @@ describe("Testing v2.x receipts - ", function () {
         });
     });
 
+    describe("Using invalidsourceBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "BTCBlockHeader", "sourceId": [{ sdf: "Dfgdfg" }] }]
+        };
+
+        it("should receive error - Invalid source id", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid sourceId for BTCBlockHeader - ' + receipt.anchors[0].sourceId);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using missingtxBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "BTCBlockHeader", "sourceId": "435345" }]
+        };
+
+        it("should receive error - missing tx", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing tx value');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalidtxBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "badtx" }]
+        };
+
+        it("should receive error - missing tx", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid tx value');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using mrnotfoundBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a204bac27393bdd9777ce02453256c5577cd02275510b2227f473d03f533924f8777b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000" }]
+        };
+
+        it("should receive error - missing tx", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Merkle root not found in tx value');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using missingblockproofBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{ "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000" }]
+        };
+
+        it("should receive error - missing block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing block proof');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using nullblockproofBTCBlockHeaderInvalidReceipt null - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": null
+            }]
+        };
+
+        it("should receive error - missing block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing block proof');
+                done();
+            });
+        });
+    });
+
+    describe("Using emptystringblockproofBTCBlockHeaderInvalidReceipt- ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": ""
+            }]
+        };
+
+        it("should receive error - missing block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing block proof');
+                done();
+            });
+        });
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt string- ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": "dfgdfgd"
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                done();
+            });
+        });
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt {}- ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": {}
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                done();
+            });
+        });
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt bad object with value- ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": { parent: "something" }
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                done();
+            });
+        });
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": []
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt - missing left or right designation", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": [{ parent: "something" }]
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof path');
+                done();
+            });
+        });
+    });
+
+    describe("Using invalidblockproofBTCBlockHeaderInvalidReceipt - blockProof[0].right invalid", function () {
+
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": [{ right: "something" }]
+            }]
+        };
+
+        it("should receive error - invalid block proof", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid block proof path');
+                done();
+            });
+        });
+    });
+
+    describe("Using BTCBlockHeader structure valid", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+            "merkleRoot": "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba",
+            "proof": [{ left: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+            { right: "bffe0b34dba16bc6fac17c08bac55d676cded5a4ade41fe2c9924a5dde8f3e5b" },
+            { right: "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" }],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "435345", "tx": "0100000001d94a7f924e49246a136a95ceb70b7c6758b2a65f7cca2b0fa144cbe7c39f217a010000006a4730440220504a4571c4263c83d51399ef14240a3bb06af7159fb6dbb6db182e7e7901edf802202942e98a20d295753155c5249a584f6261a6b31ce603720b7c37e0e71ba742070121035b690114679d44d75b75aa170e34596c94c778f589bcb9063b0e4e293fcacd1dffffffff020000000000000000226a20d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba7b0d3e00000000001976a9147003cc5915f6c23fd512b38daeeecfdde7a587e988ac00000000",
+                "blockProof": [{ "left": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb" },
+                { "right": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d" },
+                { "left": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6" },
+                { "left": "18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4" },
+                { "right": "3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea" },
+                { "right": "1516f000de6cff5c8c63eef081ebcec2ad2fdcf7034db16045d024a90341e07d" },
+                { "right": "77c654b3d1605f78ed091cbd420c939c3feff7d57dc30c171fa45a5a3c81fd7d" },
+                { "left": "a292780cc748697cb499fdcc8cb89d835609f11e502281dfe3f6690b1cc23dcb" },
+                { "right": "cb4990b9a8936bbc137ddeb6dcab4620897b099a450ecdc5f3e86ef4b3a7135c" },
+                { "left": "982ff4a3d60f874b31ab55db58ad9219f1ea42f688395e920d0eb42f59168997" },
+                { "left": "f290eea144513d618850288844775150a17eb9df6b808caca2d748ee4cd3c800" },
+                { "right": "078d336637acedc797dec33eee0a693f7a335bc653abeb3161a50e2945515b9e" }]
+            }]
+        };
+
+        it("should validate true", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "d71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCBlockHeader');
+                result.anchors[0].should.have.property('sourceId', '435345');
+                result.anchors[0].should.not.have.property('exists');
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
+
+    describe("Using BTCBlockHeader Confirm bad", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "merkleRoot": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "proof": [],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "434172", "tx": "0100000001c395d6dbcf8257b7cffd9e36e5ae37a8baf98656710adb98088dafe7cd1cf986000000004847304402206e48bfabff6cc34088425ae228d961591e9ca2ba574e36a34351dc21a43ffae8022059b28ad66de88d83e9e1c7246163e084ef43f100b1153f3d3fdc554d7008431901fdffffff029bd92800000000002321034c29fc117c86b5ee7bd7f25eca9c9176c8e4dd5bfd177db9fd0e2e2ab9b3a0f9ac0000000000000000226a20953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640fb9f0600",
+                "blockProof": [{ "left": "2c1be3db952403611f07a4e57ab4b523db3c5ddac817918ea3d4ba16bc026bd9" },
+                { "left": "cbfb8a9d9a71b4bb626c0c8a26a78047b25b57dd24741b532eeac8b29dbcbc44" },
+                { "right": "59cbe1bf39b23e2e85557e15f2c6dbf933a1b9bd449b3e5cb3deea0c8150b271" },
+                { "left": "db6f126f19c70d97edbfa5d344efbeb38f2289875a4ce8ecc4c36fe584a962aa" },
+                { "right": "bab412b28b6cad812a0f25cde766785e580e70ba0899b1ebefd79ca0203ccef7" },
+                { "left": "a04b80fcf708deb36c88a9f1e299a465edccaa7ea540db6426aa4803fdfd6887" },
+                { "right": "56e23dceac3d6a865e4227830142282f33039d83b95a144ee8933e68d9c6a19b" },
+                { "right": "bb7484e0497af0543c7601c08a424626c99f28b2fc4fbac0ac889f6588896032" },
+                { "right": "2f9328e0b11917518f173a42edae33ec8884eed74e2a46d19fd420161fa898da" },
+                { "left": "35bf2ea10461e847d68295fff1eb77b167ec485249b53b23c810901d2bfe35db" },
+                { "right": "7604dc7b8b27393edef5a48120d4367885a48a2cdc5a4923cb7aade8bd55625b" }]
+            }]
+        };
+
+        it("should validate not exists", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCBlockHeader');
+                result.anchors[0].should.have.property('sourceId', '434172');
+                result.anchors[0].should.have.property('exists', false);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
+
+    describe("Using BTCBlockHeader Confirm OK", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointSHA256v2",
+            "targetHash": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "merkleRoot": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "proof": [],
+            "anchors": [{
+                "@type": "BTCBlockHeader", "sourceId": "434172", "tx": "0100000001c395d6dbcf8257b7cffd9e36e5ae37a8baf98656710adb98088dafe7cd1cf986000000004847304402206e48bfabff6cc34088425ae228d961591e9ca2ba574e36a34351dc21a43ffae8022059b28ad66de88d83e9e1c7246163e084ef43f100b1153f3d3fdc554d7008431901fdffffff029bd92800000000002321034c29fc117c86b5ee7bd7f25eca9c9176c8e4dd5bfd177db9fd0e2e2ab9b3a0f9ac0000000000000000226a20953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640fb9f0600",
+                "blockProof": [{ "left": "2c1be3db952403611f07a4e57ab4b523db3c5ddac817918ea3d4ba16bc026bd9" },
+                { "left": "cbfb8a9d9a71b4bb626c0c8a26a78047b25b57dd24741b532eeac8b29dbcbc44" },
+                { "right": "59cbe1bf39b23e2e85557e15f2c6dbf933a1b9bd449b3e5cb3deea0c8150b271" },
+                { "left": "db6f126f19c70d97edbfa5d344efbeb38f2289875a4ce8ecc4c36fe584a962aa" },
+                { "right": "bab412b28b6cad812a0f25cde766785e580e70ba0899b1ebefd79ca0203ccef7" },
+                { "left": "a04b80fcf708deb36c88a9f1e299a465edccaa7ea540db6426aa4803fdfd6887" },
+                { "right": "56e23dceac3d6a865e4227830142282f33039d83b95a144ee8933e68d9c6a19b" },
+                { "right": "bb7484e0497af0543c7601c08a424626c99f28b2fc4fbac0ac889f6588896032" },
+                { "right": "2f9328e0b11917518f173a42edae33ec8884eed74e2a46d19fd420161fa898da" },
+                { "left": "35bf2ea10461e847d68295fff1eb77b167ec485249b53b23c810901d2bfe35db" },
+                { "right": "7604dc7b8b27393edef5a48120d4367885a48a2cdc5a4923cb7aade8bd55625a" }]
+            }]
+        };
+
+        it("should validate exists true", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('merkleRoot', "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640");
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCBlockHeader');
+                result.anchors[0].should.have.property('sourceId', '434172');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+    });
 
 });
 
