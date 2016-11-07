@@ -1690,7 +1690,7 @@ describe("Testing v2.x receipts - ", function () {
         it("should receive error - invalid anchor type", function (done) {
             chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
                 result.should.have.property('isValid', false);
-                result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0]["@type"]);
+                result.should.have.property('error', 'Invalid anchor type - ' + receipt.anchors[0].type);
                 done();
             });
         });
@@ -2152,7 +2152,7 @@ describe("Testing v2.x receipts - ", function () {
         it("should receive error - invalid block proof", function (done) {
             chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
                 result.should.have.property('isValid', false);
-                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                result.should.have.property('error', 'Invalid block proof');
                 done();
             });
         });
@@ -2178,7 +2178,7 @@ describe("Testing v2.x receipts - ", function () {
         it("should receive error - invalid block proof", function (done) {
             chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
                 result.should.have.property('isValid', false);
-                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                result.should.have.property('error', 'Invalid block proof');
                 done();
             });
         });
@@ -2204,7 +2204,7 @@ describe("Testing v2.x receipts - ", function () {
         it("should receive error - invalid block proof", function (done) {
             chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
                 result.should.have.property('isValid', false);
-                result.should.have.property('error', 'Invalid block proof - ' + receipt.anchors[0].blockProof);
+                result.should.have.property('error', 'Invalid block proof');
                 done();
             });
         });
@@ -2639,6 +2639,728 @@ describe("Testing v2.x simple receipt Hash Types - ", function () {
         });
 
     });
+
+
+});
+
+describe("Testing v2.x OpList receipts - ", function () {
+
+    describe("Using missing targetHash - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing target hash');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid targetHash - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "sdfsdfsdf"
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid target hash - sdfsdfsdf');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using missing operations - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb"
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing operations');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - null - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": null
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing operations');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - empty string - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": ""
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing operations');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - bad string - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": "sdfsdf"
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operations - ' + receipt.operations);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - empty object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": {}
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operations - ' + receipt.operations);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - bad object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": { "whatever": "idontcare" }
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operations - ' + receipt.operations);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - empty array - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": []
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operations - ' + receipt.operations);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - array bad object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [{ "whatever": "idontcare" }]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operation - ' + receipt.operations[0]);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - bad object l/r value - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [{ "left": "bad" }]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operation - ' + receipt.operations[0]);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operations - bad op value - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [{ "op": "unsupported" }]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid operation - ' + receipt.operations[0]);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using missing anchors operation - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "op": "sha-256" }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchors');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - null - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": null }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - null');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - empty string - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": "" }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - ' + receipt.operations[0].anchors);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - bad string - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": "dfgdfg" }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - ' + receipt.operations[0].anchors);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - empty object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": {} }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - ' + receipt.operations[0].anchors);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - bad object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": { "whatever": "idontcare" } }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - ' + receipt.operations[0].anchors);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - empty array - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchors operation - ' + receipt.operations[0].anchors);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - array bad object - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "whatever": "idontcare" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchor type');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - missing type - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "left": "bad" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing anchor type');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - invalid type - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "type": "badtype" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid anchor type - ' + receipt.operations[0].anchors[0].type);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - missing sourceId - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "type": "BTCOpReturn" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Missing sourceId');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - bad hex sourceId - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "type": "BTCOpReturn", "sourceId": "sdfsdf" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid sourceId for BTCOpReturn - ' + receipt.operations[0].anchors[0].sourceId);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid anchors operation - bad number sourceId - ", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "09a1ece55bb1c3f6d8f57be38cd6a9cf3f6969e7d748ccab93b343b3403bf2cb",
+            "operations": [
+                { "anchors": [{ "type": "BTCBlockHeader", "sourceId": "sdfsdf" }] }
+            ]
+        };
+
+        it("should be invalid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, false, function (err, result) {
+                result.should.have.property('isValid', false);
+                result.should.have.property('error', 'Invalid sourceId for BTCBlockHeader - ' + receipt.operations[0].anchors[0].sourceId);
+                done();
+            });
+        });
+
+    });
+
+    describe("Using non existant anchor operation list - BTCOpReturn", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2",
+            "operations": [
+                { "left": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2" },
+                { "op": "sha-256" },
+                { "left": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faf" },
+                { "op": "sha-256" },
+                { "right": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faa" },
+                { "op": "sha-256" },
+                { "anchors": [{ "type": "BTCOpReturn", "sourceId": "f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee" }] }
+            ]
+        };
+
+        it("should not exist", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee');
+                result.anchors[0].should.have.property('exists', false);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using exists anchor operation list - BTCOpReturn", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2",
+            "operations": [
+                { "left": "bdf8c9bdf076d6aff0292a1c9448691d2ae283f2ce41b045355e2c8cb8e85ef2" },
+                { "op": "sha-256" },
+                { "left": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faf" },
+                { "op": "sha-256" },
+                { "right": "cb0dbbedb5ec5363e39be9fc43f56f321e1572cfcf304d26fc67cb6ea2e49faf" },
+                { "op": "sha-256" },
+                { "anchors": [{ "type": "BTCOpReturn", "sourceId": "f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee" }] }
+            ]
+        };
+
+        it("should exist", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCOpReturn');
+                result.anchors[0].should.have.property('sourceId', 'f3be82fe1b5d8f18e009cb9a491781289d2e01678311fe2b2e4e84381aafadee');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using invalid operation list - BTCBlockHeader", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "operations": [
+                { "left": "0100000001c395d6dbcf8257b7cffd9e36e5ae37a8baf98656710adb98088dafe7cd1cf986000000004847304402206e48bfabff6cc34088425ae228d961591e9ca2ba574e36a34351dc21a43ffae8022059b28ad66de88d83e9e1c7246163e084ef43f100b1153f3d3fdc554d7008431901fdffffff029bd92800000000002321034c29fc117c86b5ee7bd7f25eca9c9176c8e4dd5bfd177db9fd0e2e2ab9b3a0f9ac0000000000000000226a20" },
+                { "right": "fb9f0600" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "2c1be3db952403611f07a4e57ab4b523db3c5ddac817918ea3d4ba16bc026bd9" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "cbfb8a9d9a71b4bb626c0c8a26a78047b25b57dd24741b532eeac8b29dbcbc44" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "59cbe1bf39b23e2e85557e15f2c6dbf933a1b9bd449b3e5cb3deea0c8150b271" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "db6f126f19c70d97edbfa5d344efbeb38f2289875a4ce8ecc4c36fe584a962aa" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "bab412b28b6cad812a0f25cde766785e580e70ba0899b1ebefd79ca0203ccef7" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "a04b80fcf708deb36c88a9f1e299a465edccaa7ea540db6426aa4803fdfd6887" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "56e23dceac3d6a865e4227830142282f33039d83b95a144ee8933e68d9c6a19b" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "bb7484e0497af0543c7601c08a424626c99f28b2fc4fbac0ac889f6588896032" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "2f9328e0b11917518f173a42edae33ec8884eed74e2a46d19fd420161fa898da" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "35bf2ea10461e847d68295fff1eb77b167ec485249b53b23c810901d2bfe35db" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "7604dc7b8b27393edef5a48120d4367885a48a2cdc5a4923cb7aade8bd556251" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "anchors": [{ "type": "BTCBlockHeader", "sourceId": "434172" }] }
+            ]
+        };
+
+        it("should not exist", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCBlockHeader');
+                result.anchors[0].should.have.property('sourceId', '434172');
+                result.anchors[0].should.have.property('exists', false);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
+    describe("Using exist anchor operation list - BTCBlockHeader", function () {
+
+        var chainpointValidate = chainpointvalidate();
+        var receipt = {
+            "@context": "https://w3id.org/chainpoint/v2",
+            "@type": "ChainpointOpListv2",
+            "targetHash": "953e505f22df025b5d372b35a376e7d6b7691a887fa6b54b567342937c68d640",
+            "operations": [
+                { "left": "0100000001c395d6dbcf8257b7cffd9e36e5ae37a8baf98656710adb98088dafe7cd1cf986000000004847304402206e48bfabff6cc34088425ae228d961591e9ca2ba574e36a34351dc21a43ffae8022059b28ad66de88d83e9e1c7246163e084ef43f100b1153f3d3fdc554d7008431901fdffffff029bd92800000000002321034c29fc117c86b5ee7bd7f25eca9c9176c8e4dd5bfd177db9fd0e2e2ab9b3a0f9ac0000000000000000226a20" },
+                { "right": "fb9f0600" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "2c1be3db952403611f07a4e57ab4b523db3c5ddac817918ea3d4ba16bc026bd9" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "cbfb8a9d9a71b4bb626c0c8a26a78047b25b57dd24741b532eeac8b29dbcbc44" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "59cbe1bf39b23e2e85557e15f2c6dbf933a1b9bd449b3e5cb3deea0c8150b271" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "db6f126f19c70d97edbfa5d344efbeb38f2289875a4ce8ecc4c36fe584a962aa" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "bab412b28b6cad812a0f25cde766785e580e70ba0899b1ebefd79ca0203ccef7" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "a04b80fcf708deb36c88a9f1e299a465edccaa7ea540db6426aa4803fdfd6887" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "56e23dceac3d6a865e4227830142282f33039d83b95a144ee8933e68d9c6a19b" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "bb7484e0497af0543c7601c08a424626c99f28b2fc4fbac0ac889f6588896032" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "2f9328e0b11917518f173a42edae33ec8884eed74e2a46d19fd420161fa898da" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "left": "35bf2ea10461e847d68295fff1eb77b167ec485249b53b23c810901d2bfe35db" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "right": "7604dc7b8b27393edef5a48120d4367885a48a2cdc5a4923cb7aade8bd55625a" },
+                { "op": "sha-256" },
+                { "op": "sha-256" },
+                { "anchors": [{ "type": "BTCBlockHeader", "sourceId": "434172" }] }
+            ]
+        };
+
+        it("should be valid", function (done) {
+            chainpointValidate.isValidReceipt(receipt, true, function (err, result) {
+                result.should.have.property('isValid', true);
+                result.should.have.property('anchors');
+                result.anchors.should.be.instanceof(Array).and.have.lengthOf(1);
+                result.anchors[0].should.have.property('type', 'BTCBlockHeader');
+                result.anchors[0].should.have.property('sourceId', '434172');
+                result.anchors[0].should.have.property('exists', true);
+                result.should.not.have.property('error');
+                done();
+            });
+        });
+
+    });
+
 
 
 });

@@ -8,6 +8,10 @@ var merkletools = require('merkle-tools');
 var blockchainanchor = require('blockchain-anchor');
 var chainpointBinary = require('chainpoint-binary');
 var rgxs = require('./rgxs');
+var sha3_512 = require('js-sha3').sha3_512;
+var sha3_384 = require('js-sha3').sha3_384;
+var sha3_256 = require('js-sha3').sha3_256;
+var sha3_224 = require('js-sha3').sha3_224;
 
 var ChainpointValidate = function () {
     // in case 'new' was omitted
@@ -17,7 +21,7 @@ var ChainpointValidate = function () {
 
     var CHAINPOINT_VALID_VERSIONS = ['1.0', '1.1', '2'];
     var CHAINPOINTv1_VALID_HASHTYPES = ['SHA-256'];
-    var CHAINPOINTv2_VALID_HASHTYPES = ['SHA224', 'SHA256', 'SHA384', 'SHA512', 'SHA3-224', 'SHA3-256', 'SHA3-384', 'SHA3-512'];
+    var CHAINPOINTv2_VALID_HASHTYPES = ['SHA224', 'SHA256', 'SHA384', 'SHA512', 'SHA3-224', 'SHA3-256', 'SHA3-384', 'SHA3-512', 'OpList'];
     var CHAINPOINTv2_VALID_ANCHORTYPES = ['BTCOpReturn', 'ETHData', 'BTCBlockHeader'];
     var blockchainAnchor = new blockchainanchor();
 
@@ -212,6 +216,173 @@ var ChainpointValidate = function () {
 
         if (_.indexOf(CHAINPOINTv2_VALID_HASHTYPES, hashType) == -1) return callback('Invalid Chainpoint type - ' + receiptType);
 
+        if (hashType === 'OpList') {
+            return _validate2xOpList(receipt, confirmAnchor, callback);
+        } else {
+            return _validate2xTypedProof(receipt, confirmAnchor, hashType, callback);
+        }
+    }
+
+    function _validate2xOpList(receipt, confirmAnchor, callback) {
+        var validHashOperations = ['sha-224', 'sha-256', 'sha-384', 'sha-512', 'sha3-224', 'sha3-256', 'sha3-384', 'sha3-512'];
+
+        // Find the target hash
+        var targetHash = receipt.targetHash;
+        if (!targetHash) return callback('Missing target hash');
+        if (!rgxs.isHex(targetHash)) return callback('Invalid target hash - ' + targetHash);
+
+        // Find the operations list
+        var operations = receipt.operations;
+        if (!operations) return callback('Missing operations');
+
+        if (!_.isArray(operations)) return callback('Invalid operations - ' + operations);
+        if (operations.length === 0) return callback('Invalid operations - ' + operations);
+
+        var anchorArray = [];
+        var hashResult = new Buffer(targetHash, 'hex');
+
+        async.forEachSeries(operations, function (operation, operationCallback) {
+            if (_.has(operation, 'left')) {
+                if (!rgxs.isHex(operation.left)) return operationCallback('Invalid operation - ' + operation);
+                hashResult = Buffer.concat([new Buffer(operation.left, 'hex'), hashResult]);
+                return operationCallback();
+            } else if (_.has(operation, 'right')) {
+                if (!rgxs.isHex(operation.right)) return operationCallback('Invalid operation - ' + operation);
+                hashResult = Buffer.concat([hashResult, new Buffer(operation.right, 'hex')]);
+                return operationCallback();
+            } else if (_.has(operation, 'op')) {
+                if (validHashOperations.indexOf(operation.op) === -1) return operationCallback('Invalid operation - ' + operation);
+                switch (operation.op) {
+                    case 'sha-224':
+                        hashResult = crypto.createHash('sha224').update(hashResult).digest();
+                        break;
+                    case 'sha-256':
+                        hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                        break;
+                    case 'sha-384':
+                        hashResult = crypto.createHash('sha384').update(hashResult).digest();
+                        break;
+                    case 'sha-512':
+                        hashResult = crypto.createHash('sha512').update(hashResult).digest();
+                        break;
+                    case 'sha3-224':
+                        hashResult = new Buffer(sha3_224.array(hashResult));
+                        break;
+                    case 'sha3-256':
+                        hashResult = new Buffer(sha3_256.array(hashResult));
+                        break;
+                    case 'sha3-384':
+                        hashResult = new Buffer(sha3_384.array(hashResult));
+                        break;
+                    case 'sha3-512':
+                        hashResult = new Buffer(sha3_512.array(hashResult));
+                        break;
+                }
+                return operationCallback();
+            } else if (_.has(operation, 'anchors')) {
+                if (!_.isArray(operation.anchors)) return operationCallback('Invalid anchors operation - ' + operation.anchors);
+                if (operation.anchors.length === 0) return operationCallback('Invalid anchors operation - ' + operation.anchors);
+
+                // Validate each anchor item contents
+                for (var x = 0; x < operation.anchors.length; x++) {
+                    var anchorType = operation.anchors[x].type || operation.anchors[x]['@type'];
+                    if (!anchorType) return operationCallback('Missing anchor type');
+                    if (_.indexOf(CHAINPOINTv2_VALID_ANCHORTYPES, anchorType) == -1) return operationCallback('Invalid anchor type - ' + anchorType);
+
+                    var sourceId = operation.anchors[x].sourceId;
+                    if (!sourceId) return operationCallback('Missing sourceId');
+
+                    switch (anchorType) {
+                        case 'BTCOpReturn':
+                            {
+                                if (!/^[A-Fa-f0-9]{64}$/.test(sourceId)) return operationCallback('Invalid sourceId for BTCOpReturn - ' + sourceId);
+                                break;
+                            }
+                        case 'ETHData':
+                            {
+                                if (!/^[A-Fa-f0-9]{64}$/.test(sourceId)) return operationCallback('Invalid sourceId for ETHData - ' + sourceId);
+                                break;
+                            }
+                        case 'BTCBlockHeader':
+                            {
+                                // check sourceId exists and is an integer
+                                if (!rgxs.isInt(sourceId)) return operationCallback('Invalid sourceId for BTCBlockHeader - ' + sourceId);
+                                break;
+                            }
+                    }
+                }
+
+                async.forEachSeries(operation.anchors, function (anchor, anchorCallback) {
+                    var anchorSummary = {};
+                    var aType = anchor.type || anchor['@type'];
+                    anchorSummary.type = aType;
+                    anchorSummary.sourceId = anchor.sourceId;
+
+                    if (confirmAnchor) {
+                        switch (anchorSummary.type) {
+                            case 'BTCOpReturn':
+                                {
+                                    blockchainAnchor.confirm(anchorSummary.sourceId, hashResult.toString('hex'), function (err, result) {
+                                        if (err) {
+                                            return anchorCallback(err);
+                                        } else {
+                                            anchorSummary.exists = result;
+                                            anchorArray.push(anchorSummary);
+                                            return anchorCallback();
+                                        }
+                                    });
+                                    break;
+                                }
+                            case 'ETHData':
+                                {
+                                    blockchainAnchor.confirmEth(anchorSummary.sourceId, hashResult.toString('hex'), function (err, result) {
+                                        if (err) {
+                                            return anchorCallback(err);
+                                        } else {
+                                            anchorSummary.exists = result;
+                                            anchorArray.push(anchorSummary);
+                                            return anchorCallback();
+                                        }
+                                    });
+                                    break;
+                                }
+                            case 'BTCBlockHeader':
+                                {
+                                    var hashResultHex = hashResult.toString('hex').match(/.{2}/g).reverse().join(''); // reverse bytes
+                                    blockchainAnchor.confirmBTCBlockHeader(anchorSummary.sourceId, hashResultHex, function (err, result) {
+                                        if (err) {
+                                            return anchorCallback(err);
+                                        } else {
+                                            anchorSummary.exists = result;
+                                            anchorArray.push(anchorSummary);
+                                            return anchorCallback();
+                                        }
+                                    });
+                                    break;
+                                }
+                        }
+                    } else {
+                        anchorArray.push(anchorSummary);
+                        return anchorCallback();
+                    }
+
+                }, function (err) {
+                    if (err) return operationCallback(err);
+                    return operationCallback();
+                });
+
+            } else {
+                return operationCallback('Invalid operation - ' + operation);
+            }
+        }, function (err) {
+            if (err) return callback(err);
+            if (anchorArray.length === 0) return callback('Missing anchors');
+
+            return callback(null, null, anchorArray);
+        });
+    }
+
+    function _validate2xTypedProof(receipt, confirmAnchor, hashType, callback) {
         var hashTestText = '^$';
         switch (hashType) {
             case 'SHA224':
@@ -274,8 +445,86 @@ var ChainpointValidate = function () {
         if (!_.isArray(anchors)) return callback('Invalid anchors array - ' + anchors);
         if (anchors.length === 0) return callback('Empty anchors array');
 
+        _validateAnchors(anchors, hashTestRegex, receipt, callback);
+
+        async.forEachSeries(anchors, function (anchorItem, anchorCallback) {
+            if (confirmAnchor) {
+                var anchorType = anchorItem.type || anchorItem['@type'];
+                switch (anchorType) {
+                    case 'BTCOpReturn':
+                        {
+                            blockchainAnchor.confirm(anchorItem.sourceId, merkleRoot, function (err, result) {
+                                if (err) {
+                                    return anchorCallback(err);
+                                } else {
+                                    anchorItem.exists = result;
+                                    return anchorCallback();
+                                }
+                            });
+                            break;
+                        }
+                    case 'ETHData':
+                        {
+                            blockchainAnchor.confirmEth(anchorItem.sourceId, merkleRoot, function (err, result) {
+                                if (err) {
+                                    return anchorCallback(err);
+                                } else {
+                                    anchorItem.exists = result;
+                                    return anchorCallback();
+                                }
+                            });
+                            break;
+                        }
+                    case 'BTCBlockHeader':
+                        {
+                            var hashResult = new Buffer(anchorItem.tx, 'hex');
+
+                            hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                            hashResult = crypto.createHash('sha256').update(hashResult).digest(); // this should be the tx id
+                            for (var x = 0; x < anchorItem.blockProof.length; x++) {
+                                if (anchorItem.blockProof[x].left) {
+                                    hashResult = Buffer.concat([new Buffer(anchorItem.blockProof[x].left, 'hex'), hashResult]);
+                                } else if (anchorItem.blockProof[x].right) {
+                                    hashResult = Buffer.concat([hashResult, new Buffer(anchorItem.blockProof[x].right, 'hex')]);
+                                }
+                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
+                            }
+                            var hashResultHex = hashResult.toString('hex').match(/.{2}/g).reverse().join(''); // reverse bytes
+                            blockchainAnchor.confirmBTCBlockHeader(anchorItem.sourceId, hashResultHex, function (err, result) {
+                                if (err) {
+                                    return anchorCallback(err);
+                                } else {
+                                    anchorItem.exists = result;
+                                    return anchorCallback();
+                                }
+                            });
+                            break;
+                        }
+                }
+            } else {
+                return anchorCallback();
+            }
+        }, function (err) {
+            if (err) return callback(err);
+            for (x = 0; x < anchors.length; x++) {
+                var anchorSummary = {};
+                var aType = anchors[x].type || anchors[x]['@type'];
+                anchorSummary.type = aType;
+                anchorSummary.sourceId = anchors[x].sourceId;
+                if (_.has(anchors[x], 'exists')) anchorSummary.exists = anchors[x].exists;
+                anchors[x] = anchorSummary;
+            }
+            return callback(null, merkleRoot, anchors);
+        });
+
+
+
+    }
+
+    function _validateAnchors(anchors, hashTestRegex, receipt, callback) {
         // Validate each anchor item contents
-        for (x = 0; x < anchors.length; x++) {
+        for (var x = 0; x < anchors.length; x++) {
             var anchorType = anchors[x].type || anchors[x]['@type'];
             if (!anchorType) return callback('Missing anchor type');
             if (_.indexOf(CHAINPOINTv2_VALID_ANCHORTYPES, anchorType) == -1) return callback('Invalid anchor type - ' + anchorType);
@@ -309,107 +558,21 @@ var ChainpointValidate = function () {
                         var blockProof = receipt.anchors[x].blockProof;
                         if (!blockProof) return callback('Missing block proof');
 
-                        if (!_.isArray(blockProof)) return callback('Invalid block proof - ' + blockProof);
+                        if (!_.isArray(blockProof)) return callback('Invalid block proof');
                         if (blockProof.length === 0) return callback('Invalid block proof');
 
                         // ensure block proof values are hex
-                        allValidHashes = true;
+                        var allValidHashes = true;
                         for (var y = 0; y < blockProof.length; y++) {
                             var blockProofItemValue = blockProof[y].left || blockProof[y].right;
                             if (!blockProofItemValue || !hashTestRegex.test(blockProofItemValue)) allValidHashes = false;
                         }
                         if (!allValidHashes) return callback('Invalid block proof path');
 
-                        // reduce anchor item to basic data for return value
-                        //var anchorSummary = {};
-                        //anchorSummary.type = 'BTCBlockHeader';
-                        //anchorSummary.sourceId = anchors[x].sourceId;
-                        //anchors[x] = anchorSummary;
                         break;
                     }
             }
         }
-
-        if (confirmAnchor) { // confirm the anchors 
-            async.forEachSeries(anchors, function (anchorItem, anchorCallback) {
-                var anchorType = anchorItem.type || anchorItem['@type'];
-                switch (anchorType) {
-                    case 'BTCOpReturn':
-                        {
-                            blockchainAnchor.confirm(anchorItem.sourceId, merkleRoot, function (err, result) {
-                                if (err) {
-                                    anchorCallback(err);
-                                } else {
-                                    anchorItem.exists = result;
-                                    anchorCallback();
-                                }
-                            });
-                            break;
-                        }
-                    case 'ETHData':
-                        {
-                            blockchainAnchor.confirmEth(anchorItem.sourceId, merkleRoot, function (err, result) {
-                                if (err) {
-                                    anchorCallback(err);
-                                } else {
-                                    anchorItem.exists = result;
-                                    anchorCallback();
-                                }
-                            });
-                            break;
-                        }
-                    case 'BTCBlockHeader':
-                        {
-                            var hashResult = new Buffer(anchorItem.tx, 'hex');
-
-                            hashResult = crypto.createHash('sha256').update(hashResult).digest();
-                            hashResult = crypto.createHash('sha256').update(hashResult).digest(); // this should be the tx id
-                            for (var x = 0; x < anchorItem.blockProof.length; x++) {
-                                if (anchorItem.blockProof[x].left) {
-                                    hashResult = Buffer.concat([new Buffer(anchorItem.blockProof[x].left, 'hex'), hashResult]);
-                                } else if (anchorItem.blockProof[x].right) {
-                                    hashResult = Buffer.concat([hashResult, new Buffer(anchorItem.blockProof[x].right, 'hex')]);
-                                }
-                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
-                                hashResult = crypto.createHash('sha256').update(hashResult).digest();
-                            }
-                            var hashResultHex = hashResult.toString('hex').match(/.{2}/g).reverse().join(''); // reverse bytes
-                            blockchainAnchor.confirmBTCBlockHeader(anchorItem.sourceId, hashResultHex, function (err, result) {
-                                if (err) {
-                                    anchorCallback(err);
-                                } else {
-                                    anchorItem.exists = result;
-                                    anchorCallback();
-                                }
-                            });
-                            break;
-                        }
-                }
-            }, function (err) {
-                if (err) return callback(err);
-
-                for (x = 0; x < anchors.length; x++) {
-                    var anchorSummary = {};
-                    var aType = anchors[x].type || anchors[x]['@type'];
-                    anchorSummary.type = aType;
-                    anchorSummary.sourceId = anchors[x].sourceId;
-                    anchorSummary.exists = anchors[x].exists;
-                    anchors[x] = anchorSummary;
-                }
-
-                return callback(null, merkleRoot, anchors);
-            });
-        } else {
-            for (x = 0; x < anchors.length; x++) {
-                var anchorSummary = {};
-                var aType = anchors[x].type || anchors[x]['@type'];
-                anchorSummary.type = aType;
-                anchorSummary.sourceId = anchors[x].sourceId;
-                anchors[x] = anchorSummary;
-            }
-            return callback(null, merkleRoot, anchors);
-        }
-
     }
 
     function _errorResult(callback, message) {
@@ -420,11 +583,18 @@ var ChainpointValidate = function () {
     }
 
     function _validResult(callback, merkleRoot, anchorArray) {
-        return callback(null, {
-            isValid: true,
-            merkleRoot: merkleRoot,
-            anchors: anchorArray
-        });
+        if (merkleRoot) {
+            return callback(null, {
+                isValid: true,
+                merkleRoot: merkleRoot,
+                anchors: anchorArray
+            });
+        } else {
+            return callback(null, {
+                isValid: true,
+                anchors: anchorArray
+            });
+        }
     }
 };
 
