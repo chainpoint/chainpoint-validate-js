@@ -1,17 +1,29 @@
-/*jslint node: true */
-'use strict';
+/* jslint node: true */
+'use strict'
 
-var _ = require('lodash');
-var async = require('async');
-var crypto = require('crypto');
-var merkletools = require('merkle-tools');
-var blockchainanchor = require('blockchain-anchor');
-var chainpointBinary = require('chainpoint-binary');
-var rgxs = require('./rgxs');
-var sha3_512 = require('js-sha3').sha3_512;
-var sha3_384 = require('js-sha3').sha3_384;
-var sha3_256 = require('js-sha3').sha3_256;
-var sha3_224 = require('js-sha3').sha3_224;
+/* Copyright 2017 Tierion
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*     http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+var _ = require('lodash')
+var async = require('async')
+var crypto = require('crypto')
+var merkletools = require('merkle-tools')
+var blockchainanchor = require('blockchain-anchor')
+var chainpointBinary = require('chainpoint-binary')
+var rgxs = require('./rgxs')
+var sha3_512 = require('js-sha3').sha3_512
+var sha3_384 = require('js-sha3').sha3_384
+var sha3_256 = require('js-sha3').sha3_256
+var sha3_224 = require('js-sha3').sha3_224
 
 var ChainpointValidate = function () {
     // in case 'new' was omitted
